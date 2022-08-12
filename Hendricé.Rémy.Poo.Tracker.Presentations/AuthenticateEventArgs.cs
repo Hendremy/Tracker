@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
-    public class AuthenticateEventArgs
+    public record AuthenticateEventArgs
     {
 
         public AuthenticateEventArgs(string code, string password)

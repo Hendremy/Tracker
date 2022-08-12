@@ -20,6 +20,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         public AuthenticateSuperviser(IAuthenticateView view, ITrackerRepository repository, IAuthenticate authenticator)
         {
             _repository = repository;
+            _authenticator = authenticator;
             _view = view;
             SubscribeToViewEvents();
         }
@@ -34,7 +35,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         {
             try
             {
-                IEnumerable<User> users = _repository.GetUsers();
+                var users = _repository.GetUsersCredentials();
                 string userCode = _authenticator.TryAuthentify(users, args.Code, args.Password);
                 HandleAuthResult(userCode);
             }

@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Hendricé.Rémy.Poo.Tracker.Presentations;
 using System;
@@ -37,6 +38,16 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        private void Quit_Click(object sender, RoutedEventArgs args)
+        {
+            QuitRequested(this, EventArgs.Empty);
+        }
+
+        private void Authenticate_Click(object? sender, RoutedEventArgs args)
+        {
+
         }
     }
 }

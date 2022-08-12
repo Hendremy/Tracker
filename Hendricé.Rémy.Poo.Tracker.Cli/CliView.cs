@@ -10,14 +10,14 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
     public abstract class CliView
     {
         private readonly Presenter _presenter;
-        internal Thread _thread;
+        protected Thread _thread;
 
         public CliView()
         {
             _presenter = Presenter.GetInstance();
         }
 
-        internal void Start()
+        protected void Start()
         {
             _thread.Start();
         }
@@ -47,7 +47,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        internal void Close()
+        protected void Close()
         {
             _thread.Interrupt();
         }

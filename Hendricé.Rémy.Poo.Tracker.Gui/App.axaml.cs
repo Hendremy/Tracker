@@ -17,6 +17,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         private ITrackerRepository _repository;
         private IAuthenticate _authenticator;
+        private MainSuperviser _mainSuperviser;
 
         public override void OnFrameworkInitializationCompleted()
         {
@@ -37,7 +38,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private void CreateAuthenticateSuperviser(AuthenticateWindow view)
         {
             var authSuperviser = new AuthenticateSuperviser(view, _repository, _authenticator);
-            authSuperviser.UserAuthentified += OnUserAuthentified;
+            authSuperviser.UserAuthentified += _mainSuperviser.OnUserAuthentified;
         }
 
         private void MainWindow_Opened(object? sender, System.EventArgs e)
@@ -53,15 +54,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             authenticateWindow.ShowDialog(sender as Window);
         }
 
-        private void OnUserAuthentified(object sender, string code)
-        {
-
-        }
-
         private void CreateMainSuperviser(MainWindow mainwindow)
         {
             var view = new MainWindow();
-            var mainSuperviser = new MainSuperviser(view, _repository);
+            _mainSuperviser = new MainSuperviser(view, _repository);
         }
     }
 }

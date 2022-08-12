@@ -9,9 +9,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
     public class Authenticator : IAuthenticate
     {
 
-        public string TryAuthentify(IEnumerable<User> users, string code, string password)
+        public string TryAuthentify(IEnumerable<UserCredentials> users, string code, string password)
         {
-            User user = users.FirstOrDefault(u => u.Code == code && u.Password == password);
+            UserCredentials user = users.FirstOrDefault(u => u.Code.Equals(code) && u.Password.Equals(password));
             return user != null ? code : null;
         }
     }

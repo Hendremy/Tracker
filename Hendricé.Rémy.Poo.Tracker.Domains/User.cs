@@ -7,10 +7,15 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
         private readonly string _code;
         private readonly string _firstName;
         private readonly string _lastName;
-        private readonly string _password;
+
+        public User(string code, string firstName, string lastName)
+        {
+            _code = code;
+            _firstName = firstName;
+            _lastName = lastName;
+        }
 
         public string Code => _code;
         public string FullName => _firstName + _lastName;
-        public string Password => _password;
     }
 }

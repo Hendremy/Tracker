@@ -5,5 +5,21 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Hendricé.Rémy.Poo.Tracker.Gui.AuthenticateWindow"
         Title="AuthenticateWindow">
-  Welcome to Avalonia!
+	<StackPanel Margin="8" Spacing="8">
+		<TextBlock TextWrapping="Wrap">Entrez votre code et mot de passe pour consulter vos tâches.</TextBlock>
+		<Label>Code</Label>
+		<TextBox Name="Code"></TextBox>
+		<TextBlock Opacity="0" TextWrapping="Wrap" Name="CodeError" Foreground="Red">_</TextBlock>
+		<Label>Mot de passe</Label>
+		<TextBox PasswordChar="*" Name="Password"></TextBox>
+		<TextBlock Opacity="0" TextWrapping="Wrap" Name="PasswordError" Foreground="Red">_</TextBlock>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<Button Click="Authenticate_Click" Grid.Column="0" Content="S'authentifier"/>
+			<Button Click="Quit_Click" Grid.Column="1" Content="Quitter"/>
+		</Grid>
+	</StackPanel>
 </Window>

@@ -10,7 +10,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
     public interface ITrackerRepository
     {
 
-        IEnumerable<User> GetUsers();
+        IEnumerable<UserCredentials> GetUsersCredentials();
         IEnumerable<Job> GetUserJobs(string code);
     }
 }
