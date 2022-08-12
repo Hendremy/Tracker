@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hendricé.Rémy.Poo.Tracker.Cli", "Hendricé.Rémy.Poo.Tracker.Cli\Hendricé.Rémy.Poo.Tracker.Cli.csproj", "{27A5828A-A04E-442C-8CE1-D1DE8E0C7B95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hendricé.Rémy.Poo.Tracker.Domains", "Hendricé.Rémy.Poo.Tracker.Domains\Hendricé.Rémy.Poo.Tracker.Domains.csproj", "{3EFE1279-19EB-456A-84EE-EE674773F579}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hendricé.Rémy.Poo.Tracker.Datas", "Hendricé.Rémy.Poo.Tracker.Datas\Hendricé.Rémy.Poo.Tracker.Datas.csproj", "{244295FC-D265-4FB0-895D-398085520743}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hendricé.Rémy.Poo.Tracker.Tests", "Hendricé.Rémy.Poo.Tracker.Tests\Hendricé.Rémy.Poo.Tracker.Tests.csproj", "{E3DFB2E3-F182-4044-BE4F-B377C4075DE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hendricé.Rémy.Poo.Tracker.Presentations", "Hendricé.Rémy.Poo.Tracker.Presentations\Hendricé.Rémy.Poo.Tracker.Presentations.csproj", "{4A2E96B1-BEE1-40AE-A760-C2E07A8A71B2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27A5828A-A04E-442C-8CE1-D1DE8E0C7B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27A5828A-A04E-442C-8CE1-D1DE8E0C7B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27A5828A-A04E-442C-8CE1-D1DE8E0C7B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27A5828A-A04E-442C-8CE1-D1DE8E0C7B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EFE1279-19EB-456A-84EE-EE674773F579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EFE1279-19EB-456A-84EE-EE674773F579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EFE1279-19EB-456A-84EE-EE674773F579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EFE1279-19EB-456A-84EE-EE674773F579}.Release|Any CPU.Build.0 = Release|Any CPU
+		{244295FC-D265-4FB0-895D-398085520743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{244295FC-D265-4FB0-895D-398085520743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{244295FC-D265-4FB0-895D-398085520743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{244295FC-D265-4FB0-895D-398085520743}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3DFB2E3-F182-4044-BE4F-B377C4075DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3DFB2E3-F182-4044-BE4F-B377C4075DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3DFB2E3-F182-4044-BE4F-B377C4075DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3DFB2E3-F182-4044-BE4F-B377C4075DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A2E96B1-BEE1-40AE-A760-C2E07A8A71B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A2E96B1-BEE1-40AE-A760-C2E07A8A71B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A2E96B1-BEE1-40AE-A760-C2E07A8A71B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A2E96B1-BEE1-40AE-A760-C2E07A8A71B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E1304F5B-9303-492F-BFD3-ECA341F2971F}
+	EndGlobalSection
+EndGlobal

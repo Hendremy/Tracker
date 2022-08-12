@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hendricé.Rémy.Poo.Tracker.Datas\Hendricé.Rémy.Poo.Tracker.Datas.csproj" />
+    <ProjectReference Include="..\Hendricé.Rémy.Poo.Tracker.Domains\Hendricé.Rémy.Poo.Tracker.Domains.csproj" />
+  </ItemGroup>
+
+</Project>
