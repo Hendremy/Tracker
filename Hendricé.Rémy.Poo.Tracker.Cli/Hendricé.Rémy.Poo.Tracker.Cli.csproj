@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Hendricé.Rémy.Poo.Tracker.Datas\Hendricé.Rémy.Poo.Tracker.Datas.csproj" />
     <ProjectReference Include="..\Hendricé.Rémy.Poo.Tracker.Domains\Hendricé.Rémy.Poo.Tracker.Domains.csproj" />
+    <ProjectReference Include="..\Hendricé.Rémy.Poo.Tracker.Presentations\Hendricé.Rémy.Poo.Tracker.Presentations.csproj" />
   </ItemGroup>
 
 </Project>
