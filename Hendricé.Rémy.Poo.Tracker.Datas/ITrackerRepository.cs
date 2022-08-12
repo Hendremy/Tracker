@@ -9,6 +9,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
 {
     public interface ITrackerRepository
     {
-        IEnumerable<Job> getUserJobs(string code);
+
+        IEnumerable<User> GetUsers();
+        IEnumerable<Job> GetUserJobs(string code);
     }
 }

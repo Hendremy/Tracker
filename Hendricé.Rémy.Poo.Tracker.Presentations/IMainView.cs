@@ -8,7 +8,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
     public interface IMainView
     {
-        void show();
-        void showAuthentify();
+        void OnUserAuthentified();
     }
 }
