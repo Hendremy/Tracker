@@ -15,7 +15,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
 
         public IEnumerable<Job> GetUserJobs(string code)
         {
-            throw new TrackerRepositoryException("Can't find users");
+            return new HashSet<Job>();
         }
 
         public IEnumerable<UserCredentials> GetUsersCredentials()

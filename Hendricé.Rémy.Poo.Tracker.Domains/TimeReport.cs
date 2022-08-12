@@ -19,7 +19,16 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
 
         public DaySpan Expected => _expected;
 
+        public DateTime ExpectedStartDate => Expected.Start.Date;
+
+        public DateTime ExpectedEndDate => Expected.End.Date;
+
         public DaySpan Actual => _actual;
+
+        public DateTime ActualStartDate => Actual.Start.Date;
+
+        public DateTime ActualEndDate => Actual.End.Date;
+
 
         public DateTime ActualStart
         {

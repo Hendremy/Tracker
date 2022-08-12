@@ -15,10 +15,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         public event EventHandler QuitRequested;
 
         private const string QUIT_CMD = "q";
+        private bool _stop = false;
         public AuthenticateView()
         {
             Welcome();
-            _thread = new Thread(new ThreadStart(Authenticate));
+            _thread = new Thread(new ThreadStart(Loop));
         }
 
         private void Welcome()
@@ -30,12 +31,12 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         public void ShowDialog()
         {
-            Start();
+            StartThread();
         }
 
-        private void Authenticate()
+        private void Loop()
         {
-            while (true)
+            while (!_stop)
             {
                 string code = AskCode();
                 if (code.Equals(QUIT_CMD)) break;
@@ -88,8 +89,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         public void CloseView()
         {
-            WriteLine("\n Bye bye ! o/");
-            Close();
+            _stop = true;
         }
     }
 }

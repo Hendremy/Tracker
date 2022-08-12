@@ -22,7 +22,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 
         public void OnUserAuthentified(object sender, string code)
         {
-
+            _userJobs = _repository.GetUserJobs(code);
         }
     }
 }
