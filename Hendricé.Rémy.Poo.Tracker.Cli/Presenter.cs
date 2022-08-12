@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Cli
 {
-    public class Arranger
+    public class Presenter
     {
-        private static Arranger singleton;
+        private static Presenter singleton;
         
-        public static Arranger GetInstance()
+        public static Presenter GetInstance()
         {
             if(singleton == null)
             {
-                singleton = new Arranger();
+                singleton = new Presenter();
             }
             return singleton;
         }
 
-        private Arranger() { }
+        private Presenter() { }
     }
 }

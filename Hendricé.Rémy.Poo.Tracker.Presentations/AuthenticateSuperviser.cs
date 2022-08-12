@@ -14,8 +14,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         private readonly ITrackerRepository _repository;
         private readonly IAuthenticate _authenticator;
 
-        private event EventHandler<string> UserAuthentified;
-        private event EventHandler AboutToQuit;
+        public event EventHandler<string> UserAuthentified;
+        public event EventHandler AboutToQuit;
 
         public AuthenticateSuperviser(IAuthenticateView view, ITrackerRepository repository, IAuthenticate authenticator)
         {
@@ -36,19 +36,24 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             {
                 IEnumerable<User> users = _repository.GetUsers();
                 string userCode = _authenticator.TryAuthentify(users, args.Code, args.Password);
-                if(userCode != null)
-                {
-                    UserAuthentified?.Invoke(this, userCode);
-                    CloseView();
-                }
-                else
-                {
-                    _view.ShowLoginError("Code ou mot de passe incorrect");
-                }
+                HandleAuthResult(userCode);
             }
             catch (TrackerRepositoryException ex)
             {
                 _view.ShowInternalError(ex.Message);
+            }
+        }
+
+        private void HandleAuthResult(string userCode)
+        {
+            if (userCode != null)
+            {
+                UserAuthentified?.Invoke(this, userCode);
+                CloseView();
+            }
+            else
+            {
+                _view.ShowLoginError("Code ou mot de passe incorrect");
             }
         }
 

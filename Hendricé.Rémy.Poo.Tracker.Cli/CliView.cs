@@ -9,12 +9,17 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 {
     public abstract class CliView
     {
-        private readonly Arranger _arranger;
+        private readonly Presenter _presenter;
         internal Thread _thread;
 
         public CliView()
         {
-            _arranger = Arranger.GetInstance();
+            _presenter = Presenter.GetInstance();
+        }
+
+        internal void Start()
+        {
+            _thread.Start();
         }
 
         public string AskString(string message)
@@ -42,7 +47,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public void CloseThread()
+        internal void Close()
         {
             _thread.Interrupt();
         }

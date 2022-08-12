@@ -23,32 +23,32 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         private void Welcome()
         {
-            Console.WriteLine("IN-B2-UE11-C# : Tracker"
+            WriteLine("IN-B2-UE11-C# : Tracker"
                 + "\n=======================" 
                 + "\nAuthentifiez-vous pour afficher vos tâches !");
         }
 
         public void ShowDialog()
         {
-            _thread.Start();
+            Start();
         }
 
-        public void Authenticate()
+        private void Authenticate()
         {
             while (true)
             {
                 string code = AskCode();
-                if (code.Equals("q")) break;
+                if (code.Equals(QUIT_CMD)) break;
                 string password = AskPassword();
                 AuthenticateEventArgs args = new AuthenticateEventArgs(code, password);
                 AuthenticationTried?.Invoke(this, args);
             }
-            CloseView();
+            QuitRequested.Invoke(this, EventArgs.Empty);
         }
 
         private string AskCode()
         {
-            string question = "Votre code : (Encodez q pour quitter l'application)";
+            string question = $"Votre code : (Encodez {QUIT_CMD} pour quitter l'application)";
             string code = AskString(question);
             while (!MatchesCodePattern(code) && !code.Equals("q"))
             {
@@ -88,8 +88,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         public void CloseView()
         {
-            WriteLine("Bye bye...");
-            CloseThread();
+            WriteLine("\n Bye bye ! o/");
+            Close();
         }
     }
 }

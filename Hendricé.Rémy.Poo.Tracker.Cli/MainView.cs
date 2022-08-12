@@ -12,18 +12,15 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         public MainView()
         {
-            Show();
+
         }
 
-        public void Show()
-        {
-            Console.WriteLine("IN-B2-UE11-C# : Tracker" + "\\n=======================");
-        }
+        public event EventHandler<string> SortRequested;
+        public event EventHandler<string> FilterRequested;
 
-        public void OnUserAuthentified()
+        public void ShowUserJobs()
         {
             throw new NotImplementedException();
         }
-
     }
 }

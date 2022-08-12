@@ -1,4 +1,5 @@
 ﻿using Hendricé.Rémy.Poo.Tracker.Datas;
+using Hendricé.Rémy.Poo.Tracker.Domains;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
     {
         private readonly IMainView _view;
         private readonly ITrackerRepository _repository;
+        private IEnumerable<Job> _userJobs;
 
         public MainSuperviser(IMainView view, ITrackerRepository repository)
         {
@@ -18,6 +20,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             _view = view;
         }
 
-        public ITrackerRepository Repository => _repository;
+        public void OnUserAuthentified(object sender, string code)
+        {
+
+        }
     }
 }

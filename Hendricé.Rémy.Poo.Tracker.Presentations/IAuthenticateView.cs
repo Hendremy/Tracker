@@ -10,8 +10,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
     {
         public event EventHandler<AuthenticateEventArgs> AuthenticationTried;
         public event EventHandler QuitRequested;
-
-        public void Authenticate();
         public void ShowLoginError(string message);
         public void ShowInternalError(string message);
         public void CloseView();

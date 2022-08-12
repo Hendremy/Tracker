@@ -12,27 +12,34 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             new Program();
         }
 
-        private AuthenticateSuperviser authSuperviser;
-        private event EventHandler<User> UserAuthentified;
+        private readonly ITrackerRepository _repository;
+        private readonly IAuthenticate _authenticator;
 
         private Program()
         {
-            ITrackerRepository repository = new JSONTrackerRepository();
-            IAuthenticate authenticator = new Authenticator();
-            CreateAuthentifySuperviser(repository, authenticator);
+            _repository = new JSONTrackerRepository();
+            _authenticator = new Authenticator();
+            CreateAuthentifySuperviser();
         }
 
-        private void CreateAuthentifySuperviser(ITrackerRepository repository, IAuthenticate authenticator)
+        private void CreateAuthentifySuperviser()
         {
-            AuthenticateView view = new AuthenticateView();
-            authSuperviser = new AuthenticateSuperviser(view, repository, authenticator);
+            var view = new AuthenticateView();
+            var authSuperviser = new AuthenticateSuperviser(view, _repository, _authenticator);
             view.ShowDialog();
+            authSuperviser.UserAuthentified += OnUserAuthentified;
         }
 
-        private void CreateMainSuperviser(ITrackerRepository repository)
+        private void OnUserAuthentified(object sender, string code)
         {
-            IMainView view = new MainView();
-            MainSuperviser mainSuperviser = new MainSuperviser(view, repository);
+            CreateMainSuperviser(code);
+        }
+
+        private void CreateMainSuperviser(string code)
+        {
+            var view = new MainView();
+            var mainSuperviser = new MainSuperviser(view, _repository);
+            view.Start();
         }
     }
 }
