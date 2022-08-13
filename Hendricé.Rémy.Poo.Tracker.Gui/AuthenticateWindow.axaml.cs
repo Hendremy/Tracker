@@ -4,13 +4,14 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Hendricé.Rémy.Poo.Tracker.Presentations;
 using System;
+using System.Text.RegularExpressions;
 
 namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
     public partial class AuthenticateWindow : Window, IAuthenticateView
     {
-        private TextBox _userCode;
-        private TextBox _userPassword;
+        private TextBox _code;
+        private TextBox _password;
         private TextBlock _codeError;
         private TextBlock _passwordError;
 
@@ -25,8 +26,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         private void LocateControls()
         {
-            _userCode = this.FindControl<TextBox>("Code");
-            _userPassword = this.FindControl<TextBox>("Password");
+            _code = this.FindControl<TextBox>("Code");
+            _password = this.FindControl<TextBox>("Password");
             _codeError = this.FindControl<TextBlock>("CodeError");
             _passwordError = this.FindControl<TextBlock>("PasswordError");
         }
@@ -41,27 +42,67 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         public void CloseView()
         {
-            throw new NotImplementedException();
+            this.Close();
         }
 
         public void ShowInternalError(string message)
         {
-            throw new NotImplementedException();
+            //Error Pop-up window à la place mieux
+            ShowPasswordError(message);
         }
 
         public void ShowLoginError(string message)
         {
-            throw new NotImplementedException();
+            ShowPasswordError(message);
         }
 
         private void Quit_Click(object sender, RoutedEventArgs args)
         {
-            QuitRequested(this, EventArgs.Empty);
+            QuitRequested?.Invoke(this, EventArgs.Empty);
         }
 
         private void Authenticate_Click(object? sender, RoutedEventArgs args)
         {
+            if (CheckCredentialsValidity()) 
+            {
+                AuthenticateEventArgs authArgs = new AuthenticateEventArgs(_code.Text, _password.Text);
+                AuthenticationTried?.Invoke(this, authArgs);
+            }
+        }
 
+        private void ShowCodeError(string message)
+        {
+            _codeError.Text = message;
+            _codeError.Opacity = 1;
+        }
+
+        private void ShowPasswordError(string message)
+        {
+            _passwordError.Text = message;
+            _passwordError.Opacity = 1;
+        }
+
+        private bool CheckCredentialsValidity()
+        {
+            bool valid = true;
+            if (MatchesCodePattern(_code.Text))
+            {
+                valid = false;
+                ShowCodeError("Code invalide");
+            }
+            if (string.IsNullOrWhiteSpace(_password.Text))
+            {
+                valid = false;
+                ShowPasswordError("Le mot de passe doit compter au moins un symbole non-blanc");
+            }
+
+            return valid;
+        }
+
+        private bool MatchesCodePattern(string code)
+        {
+            Regex reg = new("^[A-z]\\d{3}$");
+            return code != null && reg.IsMatch(code);
         }
     }
 }

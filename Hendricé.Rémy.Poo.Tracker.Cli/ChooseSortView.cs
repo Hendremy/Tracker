@@ -38,7 +38,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
                     + "\n1. Décroissant"
                     + "\nChoix : ");
             }
-            while (choice < 0 || 2 < choice);
+            while (choice < 0 || 1 < choice);
             return choice == 0;
         }
 

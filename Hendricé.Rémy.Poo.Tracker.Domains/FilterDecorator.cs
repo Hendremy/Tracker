@@ -57,7 +57,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
             {
                 jobs = jobs.Where(j => j.Planning.Contains(filterParams.Value));
             }
-            return jobs;
+            return base.Filter(jobs, filterParams);
         }
     }
 

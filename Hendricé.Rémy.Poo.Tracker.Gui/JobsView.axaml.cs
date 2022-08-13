@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Hendricé.Rémy.Poo.Tracker.Domains;
 using Hendricé.Rémy.Poo.Tracker.Presentations;
@@ -37,6 +38,21 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        private void SortParameter_Selected(object? sender, SelectionChangedEventArgs args)
+        {
+
+        }
+
+        private void FilterParameter_Selected(object? sender, SelectionChangedEventArgs args)
+        {
+
+        }
+
+        private void FilterField_Changed(object? sender, RoutedEventArgs args)
+        {
+
         }
     }
 }
