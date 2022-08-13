@@ -36,8 +36,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             try
             {
                 var users = _repository.GetUsersCredentials();
-                string userCode = _authenticator.TryAuthentify(users, args.Code, args.Password);
-                HandleAuthResult(userCode);
+                bool authOk = _authenticator.CredentialsAreValid(users, args.Code, args.Password);
+                HandleAuthResult(authOk, args.Code);
             }
             catch (TrackerRepositoryException ex)
             {
@@ -45,11 +45,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             }
         }
 
-        private void HandleAuthResult(string userCode)
+        private void HandleAuthResult(bool authOk, string code)
         {
-            if (userCode != null)
+            if (authOk)
             {
-                UserAuthentified?.Invoke(this, userCode);
+                UserAuthentified?.Invoke(this, code);
                 CloseView();
             }
             else

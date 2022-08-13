@@ -8,6 +8,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
 {
     public interface IAuthenticate
     {
-        public string TryAuthentify(IEnumerable<UserCredentials> users, string code, string password);
+        public bool CredentialsAreValid(IEnumerable<UserCredentials> users, string code, string password);
     }
 }

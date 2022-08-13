@@ -18,15 +18,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         private bool _stop = false;
         public AuthenticateView()
         {
-            Welcome();
             _thread = new Thread(new ThreadStart(Loop));
-        }
-
-        private void Welcome()
-        {
-            WriteLine("IN-B2-UE11-C# : Tracker"
-                + "\n=======================" 
-                + "\nAuthentifiez-vous pour afficher vos tâches !");
         }
 
         public void ShowDialog()

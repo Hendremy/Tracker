@@ -9,10 +9,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
     public class Authenticator : IAuthenticate
     {
 
-        public string TryAuthentify(IEnumerable<UserCredentials> users, string code, string password)
+        public bool CredentialsAreValid(IEnumerable<UserCredentials> users, string code, string password)
         {
             UserCredentials user = users.FirstOrDefault(u => u.Code.Equals(code) && u.Password.Equals(password));
-            return user != null ? code : null;
+            return user != null;
         }
     }
 }

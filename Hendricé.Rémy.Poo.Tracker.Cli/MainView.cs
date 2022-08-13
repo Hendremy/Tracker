@@ -21,6 +21,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         public MainView()
         {
+            Welcome();
             _thread = new Thread(new ThreadStart(Loop));
         }
 
@@ -28,10 +29,18 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         public event EventHandler<FilterEventArgs> FilterRequested;
         public event EventHandler QuitRequested;
 
-        public void Start(ObservableCollection<Job> jobs)
+        public void SubscribeToJobs(ObservableCollection<Job> jobs)
         {
             jobs.CollectionChanged += OnCollectionChanged;
+            Update(jobs);
             StartThread();
+        }
+
+        private void Welcome()
+        {
+            WriteLine("IN-B2-UE11-C# : Tracker"
+                + "\n======================="
+                + "\nAuthentifiez-vous pour afficher vos tâches !");
         }
 
         private void Loop()
@@ -87,9 +96,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         private void Update(IEnumerable items)
         {
             IEnumerable<Job> jobs = (IEnumerable<Job>) items;
-            WriteLine("Tâches"
-                + "\n-------------------------"
-                + $"\nTrié par : {_sortChoice,-7} | Filtré par : {_filterChoice,-7}\n");
+            WriteLine($"{"",-35}Tâches"
+                + "\n"
+                + $"\n{"",-25}Trié par : {_sortChoice,-7} | Filtré par : {_filterChoice,-7}\n\n");
             WriteLine(_presenter.JobListToString(jobs));
         }
 

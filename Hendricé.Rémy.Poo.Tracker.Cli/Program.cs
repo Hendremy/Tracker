@@ -17,7 +17,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         private Program()
         {
-            var repository = new JSONTrackerRepository();
+            var repository = new JSONTrackerRepository("../../../../../json", "users.json", "plannings");
             var authenticator = new Authenticator();
             var mainSuperviser = CreateMainSuperviser(repository);
             CreateAuthentifySuperviser(mainSuperviser, repository, authenticator);

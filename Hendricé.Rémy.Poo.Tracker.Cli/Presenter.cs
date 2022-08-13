@@ -10,7 +10,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
     public class Presenter
     {
         private static Presenter singleton;
-        private static readonly string JOBLIST_HEADER = $"{"Chantier",30}|{"Description",25}|{"Dates de début et de fin prévues",32}|{"Statut",10}|{"Dates de début et de fin effectives",35}|{"Jours de retard",15}\n" +
+        private static readonly string JOBLIST_HEADER = $"{"Chantier",-30}|{"Description",-25}|{"Dates de début et de fin prévues",-32}|{"Statut",-10}|{"Dates de début et de fin effectives",-35}|{"Jours de retard",-15}\n" +
             $"--------------------------------------------------------------------------------------------------------------------------------------------------------\n";
 
         public static Presenter GetInstance()
@@ -33,7 +33,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
                 string expectedSpan = $"{job.TimeReport.ExpectedStartDate} => {job.TimeReport.ExpectedEndDate}";
                 string actualSpan = ActualSpanToString(job);
                 string status = StatusToString(job.GetStatus());
-                string jobRow = $"\n{job.Planning,30}|{ job.Description,25}|{ expectedSpan,32}|{ status,10}|{ actualSpan,35}|{job.GetDelay(),15}";
+                string jobRow = $"\n{job.Planning,-30}|{ job.Description,-25}|{ expectedSpan,-32}|{ status,-10}|{ actualSpan,-35}|{job.GetDelay(),-15}";
             }
             sb.Append('\n');
             return sb.ToString();

@@ -5,6 +5,7 @@ using Avalonia.Markup.Xaml;
 using Hendricé.Rémy.Poo.Tracker.Datas;
 using Hendricé.Rémy.Poo.Tracker.Domains;
 using Hendricé.Rémy.Poo.Tracker.Presentations;
+using System;
 
 namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
@@ -23,7 +24,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                _repository = new JSONTrackerRepository();
+                _repository = new JSONTrackerRepository("../../../../../json", "users.json", "plannings");
                 _authenticator = new Authenticator();
 
                 var mainWindow = new MainWindow();
@@ -58,6 +59,14 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         {
             var view = new MainWindow();
             _mainSuperviser = new MainSuperviser(view, _repository);
+        }
+
+        private void Superviser_AboutToQuit(object sender, EventArgs args)
+        {
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                desktop.Shutdown(0);
+            }
         }
     }
 }

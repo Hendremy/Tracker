@@ -9,9 +9,16 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
 {
     public class JSONTrackerRepository : ITrackerRepository
     {
-        private readonly string _dirLocation = "../../../../../json";
-        private readonly string _usersFileName = "users.json";
-        private readonly string _planningsDirName = "plannings";
+        private readonly string _dirLocation;
+        private readonly string _usersFileName;
+        private readonly string _planningsDirName;
+
+        public JSONTrackerRepository(string dirLocation, string usersFileName, string planningDirName)
+        {
+            _dirLocation = dirLocation;
+            _usersFileName = usersFileName;
+            _planningsDirName = planningDirName;
+        }
 
         public IEnumerable<Job> GetUserJobs(string code)
         {
