@@ -104,7 +104,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             if (_filterParam.SelectedItem != null)
             {
                 ComboBoxItem selected = (ComboBoxItem)_filterParam.SelectedItem;
-                if(Enum.TryParse<FilterOption>(selected.Name, out opt))
+                if(Enum.TryParse(selected.Name, out opt))
                 {
                     return opt;
                 }

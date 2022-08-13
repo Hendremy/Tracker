@@ -13,6 +13,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private ComboBox _sortParam;
         private ToggleSwitch _ascending;
 
+        public event EventHandler<SortParams> SortRequested;
+
         public SortControls()
         {
             InitializeComponent();
@@ -45,14 +47,34 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             _ => "Date de début"
         };
 
+        private SortOption GetSelectedSortParam()
+        {
+            SortOption opt = SortOption.StartDate;
+            if (_sortParam.SelectedItem != null)
+            {
+                ComboBoxItem selected = (ComboBoxItem)_sortParam.SelectedItem;
+                if (Enum.TryParse(selected.Name, out opt))
+                {
+                    return opt;
+                }
+            }
+            return SortOption.StartDate;
+        }
+
+        private void FireSortRequested()
+        {
+            bool ascending = _ascending.IsChecked != null ? (bool) _ascending.IsChecked : true;
+            SortParams sortArgs = new SortParams(GetSelectedSortParam(), ascending);
+        }
+
         private void SortParam_Selected(object? sender, SelectionChangedEventArgs args)
         {
-
+            FireSortRequested();
         }
 
         private void Ascending_Changed(object? sender, RoutedEventArgs args)
         {
-
+            FireSortRequested();
         }
 
         private void InitializeComponent()

@@ -38,6 +38,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         {
             var sortControls = new SortControls();
             _sortControls.Content = sortControls;
+            sortControls.SortRequested += OnSortRequested;
         }
 
         private void InitFilterControls()
@@ -49,7 +50,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         public void Close()
         {
-
         }
 
         public void ShowConflicts(IEnumerable<JobConflict> conflicts)

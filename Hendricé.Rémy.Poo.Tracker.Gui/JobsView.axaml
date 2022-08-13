@@ -15,11 +15,8 @@
 				</UserControl>
 			</StackPanel>
 		</Expander>
-		<!-- <DockPanel Height="800">
-			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<ItemsControl Items="{Binding Path=MissionList}" Name="MissionListControl">
-				</ItemsControl>
-			</ScrollViewer>
-		</DockPanel>-->
+		<StackPanel Name="Jobs">
+			
+		</StackPanel>
 	</StackPanel>
 </UserControl>
