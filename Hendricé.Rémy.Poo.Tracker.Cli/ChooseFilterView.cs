@@ -20,16 +20,23 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         private FilterOption GetParam()
         {
             int choice = -1;
+            string question = BuildFilterOptions();
             do
             {
-                choice = AskInt("\n0. Aucun"
-                    + "\n1. Date"
-                    + "\n2. Chantier\n"
-                    + "\n3. Statut\n"
-                    + "\nChoix : ");
+                choice = AskInt( question + "\nChoix : ");
             }
             while (choice < 0 || Enum.GetValues<FilterOption>().Length < choice);
             return (FilterOption)choice;
+        }
+
+        private string BuildFilterOptions()
+        {
+            var sb = new StringBuilder();
+            foreach(FilterOption opt in Enum.GetValues<FilterOption>())
+            {
+                sb.Append($"\n{(int)opt}. {_presenter.FilterOptionToString(opt)}");
+            }
+            return sb.ToString();
         }
     }
 }

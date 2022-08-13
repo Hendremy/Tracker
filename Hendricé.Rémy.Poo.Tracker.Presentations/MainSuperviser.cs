@@ -3,9 +3,8 @@ using Hendricé.Rémy.Poo.Tracker.Domains;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
@@ -14,7 +13,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         private readonly IMainView _view;
         private readonly ITrackerRepository _repository;
         private IEnumerable<Job> _userJobs;
-        private ObservableCollection<Job> _observableJobs;
         private ISortHandler _sortHandler;
         private IFilterHandler _filterHandler;
 
@@ -38,8 +36,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         public void OnUserAuthentified(object sender, string code)
         {
             _userJobs = _repository.GetUserJobs(code);
-            _observableJobs = new ObservableCollection<Job>(_userJobs);
-            _view.SubscribeToJobs(_observableJobs);
+            _view.Update(_userJobs);
         }
 
         public void OnQuitRequested(object sender, EventArgs args)
@@ -50,21 +47,21 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         public void OnSortRequested(object sender, SortParams args)
         {
             _sortHandler.Params = args;
-            UpdateJobs();
+            SortAndFilterJobs();
         }
 
         public void OnFilterRequested(object sender, FilterParams args)
         {
             _filterHandler.Params = args;
-            UpdateJobs();
+            SortAndFilterJobs();
         }
 
-        private void UpdateJobs()
+        private void SortAndFilterJobs()
         {
             IEnumerable<Job> jobsCopy = new HashSet<Job>(_userJobs);
             jobsCopy = _filterHandler.Handle(jobsCopy);
             jobsCopy = _sortHandler.Handle(jobsCopy);
-            _observableJobs.Intersect(jobsCopy);
+            _view.Update(jobsCopy);
         }
 
         private void CloseView()

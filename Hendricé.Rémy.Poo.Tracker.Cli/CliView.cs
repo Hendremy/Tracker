@@ -25,6 +25,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         public string AskString(string message)
         {
             Console.WriteLine(message);
+            Console.Write(">");
             return Console.ReadLine();
         }
 

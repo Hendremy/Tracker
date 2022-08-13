@@ -28,13 +28,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
         }
     }
 
-    public class StartDateSort : SortDecorator
+    public class BaseSort : SortService
     {
-        public StartDateSort(SortService wrappee) : base(wrappee)
-        {
-
-        }
-
         public override IEnumerable<Job> Sort(IEnumerable<Job> jobs, SortParams sortParams)
         {
             if (sortParams.Param == SortOption.StartDate)
@@ -42,7 +37,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
                 jobs = sortParams.Ascending ? jobs.OrderBy(j => j.TimeReport.ExpectedStartDate)
                                          : jobs.OrderByDescending(j => j.TimeReport.ExpectedStartDate);
             }
-            return base.Sort(jobs, sortParams);
+            return jobs;
         }
     }
 

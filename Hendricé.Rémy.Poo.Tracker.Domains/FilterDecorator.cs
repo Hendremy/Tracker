@@ -28,6 +28,22 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
         }
     }
 
+    public class BaseFilter : FilterService
+    {
+        public override IEnumerable<Job> Filter(IEnumerable<Job> jobs, FilterParams filterParams)
+        {
+            if (filterParams.Param == FilterOption.Date && !string.IsNullOrWhiteSpace(filterParams.Value))
+            {
+                DateTime date;
+                if (DateTime.TryParse(filterParams.Value, out date))
+                {
+                    jobs = jobs.Where(j => j.HasDate(date));
+                }   
+            }
+            return jobs;
+        }
+    }
+
     public class PlanningFilter : FilterDecorator
     {
         public PlanningFilter(FilterService wrappee) : base(wrappee)
@@ -41,28 +57,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
             {
                 jobs = jobs.Where(j => j.Planning.Contains(filterParams.Value));
             }
-            return base.Filter(jobs, filterParams);
-        }
-    }
-
-    public class DateFilter : FilterDecorator
-    {
-        public DateFilter(FilterService wrappee) : base(wrappee)
-        {
-
-        }
-
-        public override IEnumerable<Job> Filter(IEnumerable<Job> jobs, FilterParams filterParams)
-        {
-            if (filterParams.Param == FilterOption.Date && !string.IsNullOrWhiteSpace(filterParams.Value))
-            {
-                DateTime date;
-                if (DateTime.TryParse(filterParams.Value, out date))
-                {
-                    jobs = jobs.Where(j => j.HasDate(date));
-                }   
-            }
-            return base.Filter(jobs, filterParams);
+            return jobs;
         }
     }
 

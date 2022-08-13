@@ -19,7 +19,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         private bool _stop = false;
         private string _filterChoice = "-";
         private string _sortChoice= "-";
-
+        private IEnumerable<Job> _jobs;
         public MainView()
         {
             Welcome();
@@ -29,13 +29,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         public event EventHandler<SortParams> SortRequested;
         public event EventHandler<FilterParams> FilterRequested;
         public event EventHandler QuitRequested;
-
-        public void SubscribeToJobs(ObservableCollection<Job> jobs)
-        {
-            jobs.CollectionChanged += OnCollectionChanged;
-            Update(jobs);
-            StartThread();
-        }
 
         private void Welcome()
         {
@@ -48,9 +41,18 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         {
             while (!_stop)
             {
+                ShowJobs();
                 HandleChoice(AskInt(MENU));
             }
             QuitRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ShowJobs()
+        {
+            WriteLine($"{"",-35}Tâches"
+                + "\n"
+                + $"\n{"",-25}Trié par : {_sortChoice,-7} | Filtré par : {_filterChoice,-7}\n\n");
+            WriteLine(_presenter.JobListToString(_jobs));
         }
 
         private void HandleChoice(int choice)
@@ -73,14 +75,14 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         {
             SortParams sortArgs = new ChooseSortView().AskChoice();
             string ascending = sortArgs.Ascending ? "^" : "v"; 
-            _sortChoice = $"{sortArgs.Param} {ascending}";
+            _sortChoice = $"{_presenter.SortOptionToString(sortArgs.Param)} {ascending}";
             SortRequested?.Invoke(this, sortArgs);
         }
 
         private void ChooseFilter()
         {
             FilterParams filterArgs = new ChooseFilterView().AskChoice();
-            _filterChoice = $"{filterArgs.Param} -> {filterArgs.Value}";
+            _filterChoice = $"{_presenter.FilterOptionToString(filterArgs.Param)} [ {filterArgs.Value} ]";
             FilterRequested?.Invoke(this, filterArgs);
         }
 
@@ -89,18 +91,13 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             QuitRequested?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        public void Update(IEnumerable<Job> items)
         {
-            Update(args.NewItems);
-        }
-
-        private void Update(IEnumerable items)
-        {
-            IEnumerable<Job> jobs = (IEnumerable<Job>) items;
-            WriteLine($"{"",-35}Tâches"
-                + "\n"
-                + $"\n{"",-25}Trié par : {_sortChoice,-7} | Filtré par : {_filterChoice,-7}\n\n");
-            WriteLine(_presenter.JobListToString(jobs));
+            if (!_thread.IsAlive)
+            {
+                StartThread();
+            }
+            _jobs = items;
         }
 
         public void Close()

@@ -20,12 +20,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         private SortOption GetParam()
         {
             int choice = -1;
+            string question = BuildSortOptions();
             do
             {
-                choice = AskInt("\n0. Date de début"
-                    + "\n1. Chantier"
-                    + "\n2. Statut\n"
-                    + "\nChoix : ");
+                choice = AskInt(question + "\nChoix : ");
             }
             while (choice < 0 || Enum.GetValues<SortOption>().Length < choice);
             return (SortOption) choice;
@@ -42,6 +40,16 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             }
             while (choice < 0 || 2 < choice);
             return choice == 0;
+        }
+
+        private string BuildSortOptions()
+        {
+            var sb = new StringBuilder();
+            foreach (SortOption opt in Enum.GetValues<SortOption>())
+            {
+                sb.Append($"\n{(int)opt}. {_presenter.SortOptionToString(opt)}");
+            }
+            return sb.ToString();
         }
     }
 }

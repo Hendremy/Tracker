@@ -46,5 +46,20 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             JobStatus.Doing => $"{job.TimeReport.ActualStartDate.ToShortDateString()} => Indéfini",
             _ => "Indéfinies"
         };
+
+        public string SortOptionToString(SortOption opt) => opt switch
+        {
+            SortOption.Planning => "Chantier",
+            SortOption.Status => "Statut",
+            _ => "Date de début"
+        };
+
+        public string FilterOptionToString(FilterOption opt) => opt switch
+        {
+            FilterOption.Planning => "Chantier",
+            FilterOption.Status => "Statut",
+            FilterOption.None => "-",
+            _ => "Date"
+        };
     }
 }

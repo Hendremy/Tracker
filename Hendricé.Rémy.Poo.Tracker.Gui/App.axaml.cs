@@ -58,7 +58,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private void CreateMainSuperviser(MainWindow mainwindow)
         {
             var view = new MainWindow();
-            _mainSuperviser = new MainSuperviser(view, _repository);
+            _mainSuperviser = new MainSuperviser(view, _repository, initSortHandler(), initFilterHandler());
         }
 
         private void Superviser_AboutToQuit(object sender, EventArgs args)
@@ -67,6 +67,22 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             {
                 desktop.Shutdown(0);
             }
+        }
+
+        private SortHandler initSortHandler()
+        {
+            var startdate = new BaseSort();
+            var status = new StatusSort(startdate);
+            var planningsort = new PlanningSort(status);
+            return new SortHandler(planningsort, new SortParams());
+        }
+
+        private FilterHandler initFilterHandler()
+        {
+            var date = new BaseFilter();
+            var status = new StatusFilter(date);
+            var planning = new PlanningFilter(status);
+            return new FilterHandler(planning, new FilterParams());
         }
     }
 }

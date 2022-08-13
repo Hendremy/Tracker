@@ -42,7 +42,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         private SortHandler initSortHandler()
         {
-            var startdate = new StartDateSort(null);
+            var startdate = new BaseSort();
             var status = new StatusSort(startdate);
             var planningsort = new PlanningSort(status);
             return new SortHandler(planningsort, new SortParams());
@@ -50,7 +50,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         private FilterHandler initFilterHandler()
         {
-            var date = new DateFilter(null);
+            var date = new BaseFilter();
             var status = new StatusFilter(date);
             var planning = new PlanningFilter(status);
             return new FilterHandler(planning, new FilterParams());
