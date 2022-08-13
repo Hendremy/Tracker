@@ -3,7 +3,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Hendricé.Rémy.Poo.Tracker.Gui.AuthenticateWindow"
+        Width="320" Height="320"
+		x:Class="Hendricé.Rémy.Poo.Tracker.Gui.AuthenticateWindow"
         Title="AuthenticateWindow">
 	<StackPanel Margin="8" Spacing="8">
 		<TextBlock TextWrapping="Wrap">Entrez votre code et mot de passe pour consulter vos tâches.</TextBlock>

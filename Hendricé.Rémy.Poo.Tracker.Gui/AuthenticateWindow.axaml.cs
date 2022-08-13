@@ -63,6 +63,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         private void Authenticate_Click(object? sender, RoutedEventArgs args)
         {
+            ResetErrorMessages();
             if (CheckCredentialsValidity()) 
             {
                 AuthenticateEventArgs authArgs = new AuthenticateEventArgs(_code.Text, _password.Text);
@@ -82,10 +83,16 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             _passwordError.Opacity = 1;
         }
 
+        private void ResetErrorMessages()
+        {
+            _codeError.Opacity = 0;
+            _passwordError.Opacity = 0;
+        }
+
         private bool CheckCredentialsValidity()
         {
             bool valid = true;
-            if (MatchesCodePattern(_code.Text))
+            if (!MatchesCodePattern(_code.Text))
             {
                 valid = false;
                 ShowCodeError("Code invalide");

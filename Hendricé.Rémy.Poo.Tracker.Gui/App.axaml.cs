@@ -34,8 +34,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private MainWindow CreateMainView()
         {
             var mainWindow = new MainWindow();
-            var superviser = _superviserCreator.CreateMainSuperviser(mainWindow);
-            CreateTabViews(mainWindow, superviser);
+            _mainSuperviser = _superviserCreator.CreateMainSuperviser(mainWindow);
+            CreateTabViews(mainWindow, _mainSuperviser);
             return mainWindow;
         }
 
@@ -74,6 +74,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         {
             var authSuperviser = _superviserCreator.CreateAuthenticateSuperviser(view);
             authSuperviser.UserAuthentified += _mainSuperviser.OnUserAuthentified;
+            authSuperviser.AboutToQuit += Superviser_AboutToQuit;
         }
 
         private void MainWindow_Opened(object? sender, EventArgs e)
@@ -89,7 +90,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             authenticateWindow.ShowDialog(sender as Window);
         }
 
-        private void Superviser_AboutToQuit(object sender, EventArgs args)
+        private void Superviser_AboutToQuit(object? sender, EventArgs args)
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
