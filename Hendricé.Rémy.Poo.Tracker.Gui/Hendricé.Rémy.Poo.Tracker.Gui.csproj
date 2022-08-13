@@ -28,4 +28,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Hendricé.Rémy.Poo.Tracker.Presentations\Hendricé.Rémy.Poo.Tracker.Presentations.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="JobsTab.axaml.cs">
+      <DependentUpon>JobsTab.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

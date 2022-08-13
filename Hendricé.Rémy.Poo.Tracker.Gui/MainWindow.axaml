@@ -5,5 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Hendricé.Rémy.Poo.Tracker.Gui.MainWindow"
         Title="Hendricé.Rémy.Poo.Tracker.Gui">
-    Welcome to Avalonia!
+	<TabControl Name="Tabs">
+		
+	</TabControl>
 </Window>

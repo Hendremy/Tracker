@@ -16,11 +16,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         {
             var repository = new JSONTrackerRepository("../../../../../json", "users.json", "plannings");
             var authenticator = new Authenticator();
-            var mainSuperviser = CreateMainSuperviser(repository);
+            var mainSuperviser = CreateJobsSuperviser(repository);
             CreateAuthentifySuperviser(mainSuperviser, repository, authenticator);
         }
 
-        private void CreateAuthentifySuperviser(MainSuperviser mainSuperviser, ITrackerRepository repo, IAuthenticate auth)
+        private void CreateAuthentifySuperviser(JobsSuperviser mainSuperviser, ITrackerRepository repo, IAuthenticate auth)
         {
             var view = new AuthenticateView();
             var authSuperviser = new AuthenticateSuperviser(view, repo, auth);
@@ -28,13 +28,13 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             authSuperviser.UserAuthentified += mainSuperviser.OnUserAuthentified;
         }
 
-        private MainSuperviser CreateMainSuperviser(ITrackerRepository repo)
+        private JobsSuperviser CreateJobsSuperviser(ITrackerRepository repo)
         {
             var view = new MainView();
             var sorter = initSortHandler();
             var filter = initFilterHandler();
             var conflictDetector = new JobConflictDetector();
-            var mainSuperviser = new MainSuperviser(view, repo, sorter, filter, conflictDetector);
+            var mainSuperviser = new JobsSuperviser(view, repo, sorter, filter, conflictDetector);
             return mainSuperviser;
         }
 

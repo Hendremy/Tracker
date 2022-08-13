@@ -9,7 +9,7 @@ using System;
 
 namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
-    public partial class App : Application
+    public partial class App : Application, ITabProvider
     {
         public override void Initialize()
         {
@@ -42,7 +42,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             authSuperviser.UserAuthentified += _mainSuperviser.OnUserAuthentified;
         }
 
-        private void MainWindow_Opened(object? sender, System.EventArgs e)
+        private void MainWindow_Opened(object? sender, EventArgs e)
         {
             var authenticateWindow = new AuthenticateWindow()
             {
@@ -58,7 +58,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private void CreateMainSuperviser(MainWindow mainwindow)
         {
             var view = new MainWindow();
-            _mainSuperviser = new MainSuperviser(view, _repository, initSortHandler(), initFilterHandler(), new JobConflictDetector());
+            _mainSuperviser = new MainSuperviser(view, this);
         }
 
         private void Superviser_AboutToQuit(object sender, EventArgs args)
@@ -69,7 +69,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             }
         }
 
-        private SortHandler initSortHandler()
+        private SortHandler InitSortHandler()
         {
             var startdate = new BaseSort();
             var status = new StatusSort(startdate);
@@ -77,12 +77,19 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             return new SortHandler(planningsort, new SortParams());
         }
 
-        private FilterHandler initFilterHandler()
+        private FilterHandler InitFilterHandler()
         {
             var date = new BaseFilter();
             var status = new StatusFilter(date);
             var planning = new PlanningFilter(status);
             return new FilterHandler(planning, new FilterParams());
+        }
+
+        public JobsTab GetJobsTab()
+        {
+            var jobsTab = new JobsTab();
+            new JobsSuperviser(jobsTab, );
+            return jobsTab;
         }
     }
 }

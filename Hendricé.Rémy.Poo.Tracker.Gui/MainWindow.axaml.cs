@@ -10,28 +10,24 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
     public partial class MainWindow : Window, IMainView
     {
+        private TabControl _tabs;
+
         public MainWindow()
         {
             InitializeComponent();
+            LocateControls();
         }
 
-        public event EventHandler<SortParams> SortRequested;
-        public event EventHandler<FilterParams> FilterRequested;
-        public event EventHandler QuitRequested;
-
-        public void ShowConflicts(IEnumerable<JobConflict> conflicts)
+        public void InitJobsTab(Presentations.JobsSuperviser superviser)
         {
-            throw new NotImplementedException();
+            ;
         }
 
-        public void ShowUserJobs()
+        private void LocateControls()
         {
-            throw new NotImplementedException();
+            _tabs = this.FindControl<TabControl>("Tabs");
         }
 
-        public void Update(IEnumerable<Job> jobs)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

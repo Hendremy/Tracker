@@ -1,0 +1,44 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Hendricé.Rémy.Poo.Tracker.Gui.JobsTab">
+	<TabItem>
+		<TabItem.Header>
+			<TextBlock>Tâches</TextBlock>
+		</TabItem.Header>
+		<StackPanel>
+			<TextBlock>Tracker</TextBlock>
+			<Expander Header="Options de tri et filtre">
+				<StackPanel Spacing="8">
+					<TextBlock>Triez par</TextBlock>
+					<ComboBox Name="SortParameter" Width="250" SelectionChanged="SortParameter_Selected">
+						<ComboBoxItem Classes="StartDate +" IsSelected="True" >Par date de début prévue (^)</ComboBoxItem>
+						<ComboBoxItem Classes="StartDate -">Par date de début prévue (v)</ComboBoxItem>
+						<ComboBoxItem Classes="Status +">Par statut (^)</ComboBoxItem>
+						<ComboBoxItem Classes="Status -">Par statut (v)</ComboBoxItem>
+						<ComboBoxItem Classes="Setup +">Par chantier (^)</ComboBoxItem>
+						<ComboBoxItem Classes="Setup -">Par chantier (v)</ComboBoxItem>
+					</ComboBox>
+					<TextBlock>Filtrez par</TextBlock>
+					<ComboBox Name="FilterChoice" Width="250" SelectionChanged="FilterParameter_Selected">
+						<ComboBoxItem Name="ShowAll" IsSelected="True">Tout montrer</ComboBoxItem>
+						<ComboBoxItem Name="StartDate">Filtrer par date de début</ComboBoxItem>
+						<ComboBoxItem Name="Status">Filtrer par statut</ComboBoxItem>
+						<ComboBoxItem Name="Setup">Filtrer par chantier</ComboBoxItem>
+					</ComboBox>
+					<TextBlock>Filtre</TextBlock>
+					<TextBox Name="FilterParameter"></TextBox>
+					<Button Click="FilterField_Selected" Name="ActivateFilter" Content="Filtrer"></Button>
+				</StackPanel>
+			</Expander>
+			<DockPanel Height="800">
+				<ScrollViewer VerticalScrollBarVisibility="Auto">
+					<ItemsControl Items="{Binding Path=MissionList}" Name="MissionListControl">
+					</ItemsControl>
+				</ScrollViewer>
+			</DockPanel>
+		</StackPanel>
+	</TabItem>
+</UserControl>

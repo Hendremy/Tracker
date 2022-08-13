@@ -10,66 +10,19 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
     public class MainSuperviser
     {
+        private readonly ITabProvider _superviserProvider;
         private readonly IMainView _view;
-        private readonly ITrackerRepository _repository;
-        private IEnumerable<Job> _userJobs;
-        private ISortHandler _sortHandler;
-        private IFilterHandler _filterHandler;
-        private IDetectConflict _conflictDetector;
 
-        public MainSuperviser(IMainView view, ITrackerRepository repository, 
-            ISortHandler sortHandler, IFilterHandler filterHandler, IDetectConflict conflictDetector)
+        public MainSuperviser(IMainView view, ITabProvider superviserProvider)
         {
-            _repository = repository;
             _view = view;
-            _sortHandler = sortHandler;
-            _filterHandler = filterHandler;
-            _conflictDetector = conflictDetector;
-            SubscribeToViewEvents();
-        }
-
-        private void SubscribeToViewEvents()
-        {
-            _view.QuitRequested += OnQuitRequested;
-            _view.SortRequested += OnSortRequested;
-            _view.FilterRequested += OnFilterRequested;
+            _superviserProvider = superviserProvider;
         }
 
         public void OnUserAuthentified(object sender, string code)
         {
-            _userJobs = _repository.GetUserJobs(code);
-            _view.Update(_userJobs);
-            _view.ShowConflicts(_conflictDetector.DetectConflicts(_userJobs));
+
         }
 
-        public void OnQuitRequested(object sender, EventArgs args)
-        {
-            CloseView();
-        }
-
-        public void OnSortRequested(object sender, SortParams args)
-        {
-            _sortHandler.Params = args;
-            SortAndFilterJobs();
-        }
-
-        public void OnFilterRequested(object sender, FilterParams args)
-        {
-            _filterHandler.Params = args;
-            SortAndFilterJobs();
-        }
-
-        private void SortAndFilterJobs()
-        {
-            IEnumerable<Job> jobsCopy = new HashSet<Job>(_userJobs);
-            jobsCopy = _filterHandler.Handle(jobsCopy);
-            jobsCopy = _sortHandler.Handle(jobsCopy);
-            _view.Update(jobsCopy);
-        }
-
-        private void CloseView()
-        {
-            _view.Close();
-        }
     }
 }

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Cli
 {
-    public class MainView : CliView, IMainView
+    public class MainView : CliView, IJobsView
     {
         private const int QUIT_NUM = 0;
         private readonly string MENU = $" 1 -> Modifier tri \n 2 -> Modifier filtre \n {QUIT_NUM} -> Quitter";

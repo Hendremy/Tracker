@@ -9,12 +9,31 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
     public partial class AuthenticateWindow : Window, IAuthenticateView
     {
+        private TextBox _userCode;
+        private TextBox _userPassword;
+        private TextBlock _codeError;
+        private TextBlock _passwordError;
+
         public AuthenticateWindow()
         {
             InitializeComponent();
+            LocateControls();
 #if DEBUG
             this.AttachDevTools();
 #endif
+        }
+
+        private void LocateControls()
+        {
+            _userCode = this.FindControl<TextBox>("Code");
+            _userPassword = this.FindControl<TextBox>("Password");
+            _codeError = this.FindControl<TextBlock>("CodeError");
+            _passwordError = this.FindControl<TextBlock>("PasswordError");
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
         }
 
         public event EventHandler<AuthenticateEventArgs> AuthenticationTried;
@@ -33,11 +52,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         public void ShowLoginError(string message)
         {
             throw new NotImplementedException();
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
         }
 
         private void Quit_Click(object sender, RoutedEventArgs args)
