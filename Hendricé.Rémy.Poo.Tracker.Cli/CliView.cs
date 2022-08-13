@@ -22,14 +22,14 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             _thread.Start();
         }
 
-        public string AskString(string message)
+        protected string AskString(string message)
         {
             Console.WriteLine(message);
             Console.Write(">");
             return Console.ReadLine();
         }
 
-        public int AskInt(string message)
+        protected int AskInt(string message)
         {
             try
             {
@@ -42,22 +42,35 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             }
         }
 
-        public void WriteLine(string message)
+        protected void WriteLine(string message)
         {
             Console.WriteLine(message);
         }
 
-        public void WriteInternalError(string message)
+        protected void WriteInternalError(string message)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"\n /!\\ {message} /!\\ \n");
-            Console.ForegroundColor = ConsoleColor.White;
+            ResetColors();
         }
 
-        public void WriteUserError(string message)
+        protected void WriteUserError(string message)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"\n *** {message} *** \n");
+            ResetColors();
+        }
+
+        protected void WriteWarning(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"\n {message} \n");
+            ResetColors();
+        }
+
+        private void ResetColors()
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
         }
     }

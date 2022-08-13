@@ -12,9 +12,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             new Program();
         }
 
-        private readonly ITrackerRepository _repository;
-        private readonly IAuthenticate _authenticator;
-
         private Program()
         {
             var repository = new JSONTrackerRepository("../../../../../json", "users.json", "plannings");
@@ -36,7 +33,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             var view = new MainView();
             var sorter = initSortHandler();
             var filter = initFilterHandler();
-            var mainSuperviser = new MainSuperviser(view, repo, sorter, filter);
+            var conflictDetector = new JobConflictDetector();
+            var mainSuperviser = new MainSuperviser(view, repo, sorter, filter, conflictDetector);
             return mainSuperviser;
         }
 

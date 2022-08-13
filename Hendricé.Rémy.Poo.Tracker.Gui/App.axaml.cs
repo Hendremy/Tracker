@@ -58,7 +58,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private void CreateMainSuperviser(MainWindow mainwindow)
         {
             var view = new MainWindow();
-            _mainSuperviser = new MainSuperviser(view, _repository, initSortHandler(), initFilterHandler());
+            _mainSuperviser = new MainSuperviser(view, _repository, initSortHandler(), initFilterHandler(), new JobConflictDetector());
         }
 
         private void Superviser_AboutToQuit(object sender, EventArgs args)

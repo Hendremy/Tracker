@@ -19,6 +19,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         public event EventHandler<FilterParams> FilterRequested;
         public event EventHandler QuitRequested;
 
+        public void ShowConflicts(IEnumerable<JobConflict> conflicts)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ShowUserJobs()
         {
             throw new NotImplementedException();

@@ -15,14 +15,16 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         private IEnumerable<Job> _userJobs;
         private ISortHandler _sortHandler;
         private IFilterHandler _filterHandler;
+        private IDetectConflict _conflictDetector;
 
         public MainSuperviser(IMainView view, ITrackerRepository repository, 
-            ISortHandler sortHandler, IFilterHandler filterHandler)
+            ISortHandler sortHandler, IFilterHandler filterHandler, IDetectConflict conflictDetector)
         {
             _repository = repository;
             _view = view;
             _sortHandler = sortHandler;
             _filterHandler = filterHandler;
+            _conflictDetector = conflictDetector;
             SubscribeToViewEvents();
         }
 
@@ -37,6 +39,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         {
             _userJobs = _repository.GetUserJobs(code);
             _view.Update(_userJobs);
+            _view.ShowConflicts(_conflictDetector.DetectConflicts(_userJobs));
         }
 
         public void OnQuitRequested(object sender, EventArgs args)

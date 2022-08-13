@@ -58,8 +58,35 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         {
             FilterOption.Planning => "Chantier",
             FilterOption.Status => "Statut",
-            FilterOption.None => "-",
+            FilterOption.None => "Aucun",
             _ => "Date"
         };
+
+        public string ConflictsToString(IEnumerable<JobConflict> conflicts)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($" <!> Des conflits entre les tâches on été détectés ({conflicts.Count()}) <!> \n");
+            sb.Append($"{"Chantier",-25} | Tâche"
+                + "\n------------------------------------------------------------\n");
+            foreach(JobConflict conflict in conflicts)
+            {
+                sb.Append(ConflictToString(conflict));
+            }
+            return sb.ToString();
+        }
+
+        private string ConflictToString(JobConflict conflict)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"\n{conflict.JobAPlanning,-25}|{conflict.JobAName}");
+            sb.Append($"\n{conflict.JobBPlanning,-25}|{conflict.JobBName}");
+            sb.Append("\n------------------------------------------------------------\n");
+            foreach(DateTime date in conflict.ConflictDates)
+            {
+                sb.Append($"{date.ToShortDateString()}\n");
+            }
+            sb.Append("\n------------------------------------------------------------\n");
+            return sb.ToString();
+        }
     }
 }

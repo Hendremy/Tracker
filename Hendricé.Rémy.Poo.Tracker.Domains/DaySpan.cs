@@ -14,6 +14,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
         public DaySpan(DateTime start, DateTime end)
         {
             Start = start;
+            End = end;
         }
 
         public DateTime Start
@@ -26,6 +27,37 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
         {
             get => _end;
             set => _end = value;
+        }
+
+        public bool CollidesWith(DaySpan span)
+        {
+            return this.Start <= span.End && span.Start <= this.End;
+        }
+
+        public IEnumerable<DateTime> GetConflictDates(DaySpan span)
+        {
+            ISet<DateTime> conflictDates = new HashSet<DateTime>();
+            if (CollidesWith(span))
+            {
+                DateTime maxStart = Max(this.Start, span.Start);
+                DateTime minEnd = Min(this.End, span.End);
+                while(maxStart <= minEnd)
+                {
+                    conflictDates.Add(new DateTime(maxStart.Ticks));
+                    maxStart = maxStart.AddDays(1);
+                }
+            }
+            return conflictDates;
+        } 
+
+        private DateTime Max(DateTime a, DateTime b)
+        {
+            return a > b ? a : b;
+        }
+
+        private DateTime Min(DateTime a, DateTime b)
+        {
+            return a < b ? a : b;
         }
     }
 }

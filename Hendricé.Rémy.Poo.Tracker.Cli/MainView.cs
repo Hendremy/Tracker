@@ -15,7 +15,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
     public class MainView : CliView, IMainView
     {
         private const int QUIT_NUM = 0;
-        private readonly string MENU = $"1 -> Modifier tri | 2 -> Modifier filtre | {QUIT_NUM} -> Quitter";
+        private readonly string MENU = $" 1 -> Modifier tri \n 2 -> Modifier filtre \n {QUIT_NUM} -> Quitter";
         private bool _stop = false;
         private string _filterChoice = "-";
         private string _sortChoice= "-";
@@ -103,6 +103,14 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         public void Close()
         {
             _stop = true;
+        }
+
+        public void ShowConflicts(IEnumerable<JobConflict> conflicts)
+        {
+            if(conflicts.Count() > 0)
+            {
+                WriteWarning(_presenter.ConflictsToString(conflicts));
+            }
         }
     }
 }
