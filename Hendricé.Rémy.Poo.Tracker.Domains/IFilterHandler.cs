@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Domains
 {
-    public enum FilterOption
+    public interface IFilterHandler
     {
-        Date,
-        Planning,
-        Status
+        public FilterParams Params { set; }
+
+        public IEnumerable<Job> handle(IEnumerable<Job> jobs);
     }
 }

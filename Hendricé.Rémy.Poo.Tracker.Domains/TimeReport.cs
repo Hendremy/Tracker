@@ -73,6 +73,12 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
             }
             return reportStatus;
         }
+
+        public bool HasDate(DateTime date)
+        {
+            return ExpectedEndDate == date || ExpectedStartDate == date;
+                //|| ActualStartDate == date || ActualEndDate == date;
+        }
     }
 
     

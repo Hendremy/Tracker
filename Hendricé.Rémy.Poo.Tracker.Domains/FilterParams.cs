@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hendricé.Rémy.Poo.Tracker.Presentations
+namespace Hendricé.Rémy.Poo.Tracker.Domains
 {
-    public record FilterEventArgs
+    public record FilterParams
     {
         public FilterOption Param { get; init; }
         public string Value { get; init; }
 
-        public FilterEventArgs(FilterOption param, string value)
+        public FilterParams(FilterOption param, string value)
         {
             Param = param;
             Value = value;

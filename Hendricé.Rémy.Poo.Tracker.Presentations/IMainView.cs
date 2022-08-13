@@ -10,8 +10,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
     public interface IMainView
     {
-        public event EventHandler<SortEventArgs> SortRequested;
-        public event EventHandler<FilterEventArgs> FilterRequested;
+        public event EventHandler<SortParams> SortRequested;
+        public event EventHandler<FilterParams> FilterRequested;
         public event EventHandler QuitRequested;
         public void Close();
         public void SubscribeToJobs(ObservableCollection<Job> jobs);

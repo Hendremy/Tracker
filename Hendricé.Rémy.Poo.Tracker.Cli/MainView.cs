@@ -14,7 +14,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 {
     public class MainView : CliView, IMainView
     {
-        private const string MENU = "1 -> Modifier tri | 2 -> Modifier filtre | 3 -> Quitter";
+        private const int QUIT_NUM = 0;
+        private readonly string MENU = $"1 -> Modifier tri | 2 -> Modifier filtre | {QUIT_NUM} -> Quitter";
         private bool _stop = false;
         private string _filterChoice = "-";
         private string _sortChoice= "-";
@@ -25,8 +26,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             _thread = new Thread(new ThreadStart(Loop));
         }
 
-        public event EventHandler<SortEventArgs> SortRequested;
-        public event EventHandler<FilterEventArgs> FilterRequested;
+        public event EventHandler<SortParams> SortRequested;
+        public event EventHandler<FilterParams> FilterRequested;
         public event EventHandler QuitRequested;
 
         public void SubscribeToJobs(ObservableCollection<Job> jobs)
@@ -62,7 +63,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
                 case 2:
                     ChooseFilter();
                     break;
-                case 3:
+                case QUIT_NUM:
                     RequestQuit();
                     break;
             }
@@ -70,15 +71,15 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         private void ChooseSort()
         {
-            SortEventArgs sortArgs = new ChooseSortView().AskChoice();
+            SortParams sortArgs = new ChooseSortView().AskChoice();
             string ascending = sortArgs.Ascending ? "^" : "v"; 
             _sortChoice = $"{sortArgs.Param} {ascending}";
-            SortRequested.Invoke(this, sortArgs);
+            SortRequested?.Invoke(this, sortArgs);
         }
 
         private void ChooseFilter()
         {
-            FilterEventArgs filterArgs = new ChooseFilterView().AskChoice();
+            FilterParams filterArgs = new ChooseFilterView().AskChoice();
             _filterChoice = $"{filterArgs.Param} -> {filterArgs.Value}";
             FilterRequested?.Invoke(this, filterArgs);
         }

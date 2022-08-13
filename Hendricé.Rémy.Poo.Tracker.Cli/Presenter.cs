@@ -32,7 +32,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             {
                 string expectedSpan = $"{job.TimeReport.ExpectedStartDate} => {job.TimeReport.ExpectedEndDate}";
                 string actualSpan = ActualSpanToString(job);
-                string status = StatusToString(job.GetStatus());
+                string status = job.GetStatusString();
                 string jobRow = $"\n{job.Planning,-30}|{ job.Description,-25}|{ expectedSpan,-32}|{ status,-10}|{ actualSpan,-35}|{job.GetDelay(),-15}";
             }
             sb.Append('\n');
@@ -44,13 +44,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             JobStatus.Done => $"{job.TimeReport.ActualStartDate} => {job.TimeReport.ActualEndDate}",
             JobStatus.Doing => $"{job.TimeReport.ActualStartDate} => Indéfini",
             _ => "Indéfinies"
-        };
-
-        private string StatusToString(JobStatus status) => status switch
-        {
-            JobStatus.Done => "Terminée",
-            JobStatus.Todo => "A faire",
-            _ => "En cours"
         };
     }
 }

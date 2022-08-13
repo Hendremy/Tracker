@@ -10,11 +10,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 {
     class ChooseSortView : CliView
     {
-        public SortEventArgs AskChoice()
+        public SortParams AskChoice()
         {
             SortOption param = GetParam();
             bool ascending = GetAscending();
-            return new SortEventArgs(param, ascending);
+            return new SortParams(param, ascending);
         }
 
         private SortOption GetParam()

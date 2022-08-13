@@ -10,11 +10,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 {
     public class ChooseFilterView : CliView
     {
-        public FilterEventArgs AskChoice()
+        public FilterParams AskChoice()
         {
             FilterOption param = GetParam();
             string value = AskString("Valeur du filtre :");
-            return new FilterEventArgs(param, value);
+            return new FilterParams(param, value);
         }
 
         private FilterOption GetParam()

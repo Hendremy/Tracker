@@ -34,8 +34,26 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         private MainSuperviser CreateMainSuperviser(ITrackerRepository repo)
         {
             var view = new MainView();
-            var mainSuperviser = new MainSuperviser(view, repo);
+            var sorter = initSortHandler();
+            var filter = initFilterHandler();
+            var mainSuperviser = new MainSuperviser(view, repo, sorter, filter);
             return mainSuperviser;
+        }
+
+        private SortHandler initSortHandler()
+        {
+            var startdate = new StartDateSort(null);
+            var status = new StatusSort(startdate);
+            var planningsort = new PlanningSort(status);
+            return new SortHandler(planningsort);
+        }
+
+        private FilterHandler initFilterHandler()
+        {
+            var date = new DateFilter(null);
+            var status = new StatusFilter(date);
+            var planning = new PlanningFilter(status);
+            return new FilterHandler(planning);
         }
     }
 }

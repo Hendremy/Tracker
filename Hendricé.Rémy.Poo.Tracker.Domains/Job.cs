@@ -31,6 +31,18 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
 
         public JobStatus GetStatus() => _timeReport.GetStatus();
 
+        public string GetStatusString() => GetStatus() switch
+        {
+            JobStatus.Todo => "A faire",
+            JobStatus.Done => "Terminée",
+            _ => "En cours"
+        };
+
         public double GetDelay() => _timeReport.GetDelay();
+
+        public bool HasDate(DateTime date)
+        {
+            return TimeReport.HasDate(date);
+        }
     }
 }

@@ -1,15 +1,21 @@
-﻿using Hendricé.Rémy.Poo.Tracker.Domains;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hendricé.Rémy.Poo.Tracker.Presentations
+namespace Hendricé.Rémy.Poo.Tracker.Domains
 {
-    public record SortEventArgs
+    public record SortParams
     {
-        public SortEventArgs(SortOption param, bool ascending)
+
+        public SortParams()
+        {
+            Param = SortOption.StartDate;
+            Ascending = true;
+        }
+
+        public SortParams(SortOption param, bool ascending)
         {
             Param = param;
             Ascending = ascending;
