@@ -9,8 +9,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
 {
     public enum FilterOption
     {
-        Date,
-        Planning,
-        Status
+        Date = 1,
+        Planning = 2,
+        Status = 3,
+        None = 0
     }
 }

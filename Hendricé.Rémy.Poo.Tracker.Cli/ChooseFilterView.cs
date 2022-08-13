@@ -22,9 +22,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             int choice = -1;
             do
             {
-                choice = AskInt("\n0. Date prévue"
-                    + "\n1. Chantier"
-                    + "\n2. Statut\n"
+                choice = AskInt("\n0. Aucun"
+                    + "\n1. Date"
+                    + "\n2. Chantier\n"
+                    + "\n3. Statut\n"
                     + "\nChoix : ");
             }
             while (choice < 0 || Enum.GetValues<FilterOption>().Length < choice);

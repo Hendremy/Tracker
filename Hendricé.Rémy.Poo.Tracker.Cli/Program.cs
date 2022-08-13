@@ -45,7 +45,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             var startdate = new StartDateSort(null);
             var status = new StatusSort(startdate);
             var planningsort = new PlanningSort(status);
-            return new SortHandler(planningsort);
+            return new SortHandler(planningsort, new SortParams());
         }
 
         private FilterHandler initFilterHandler()
@@ -53,7 +53,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             var date = new DateFilter(null);
             var status = new StatusFilter(date);
             var planning = new PlanningFilter(status);
-            return new FilterHandler(planning);
+            return new FilterHandler(planning, new FilterParams());
         }
     }
 }

@@ -12,6 +12,12 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
         public FilterOption Param { get; init; }
         public string Value { get; init; }
 
+        public FilterParams()
+        {
+            Param = FilterOption.None;
+            Value = "";
+        }
+
         public FilterParams(FilterOption param, string value)
         {
             Param = param;

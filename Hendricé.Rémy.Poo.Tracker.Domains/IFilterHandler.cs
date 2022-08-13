@@ -10,6 +10,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
     {
         public FilterParams Params { set; }
 
-        public IEnumerable<Job> handle(IEnumerable<Job> jobs);
+        public IEnumerable<Job> Handle(IEnumerable<Job> jobs);
     }
 }

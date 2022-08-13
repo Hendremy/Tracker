@@ -11,10 +11,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
         private readonly SortService _sortService;
         private SortParams _sortParams;
 
-        public SortHandler(SortService decorator)
+        public SortHandler(SortService sortService, SortParams sortParams)
         {
-            _sortService = decorator;
-            Params = new SortParams();
+            _sortService = sortService;
+            _sortParams = sortParams;
         }
 
         public SortParams Params
@@ -22,7 +22,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
             set => _sortParams = value;
         }
 
-        public IEnumerable<Job> handle(IEnumerable<Job> jobs)
+        public IEnumerable<Job> Handle(IEnumerable<Job> jobs)
         {
             return _sortService.Sort(jobs, _sortParams);
         }

@@ -15,8 +15,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         private readonly ITrackerRepository _repository;
         private IEnumerable<Job> _userJobs;
         private ObservableCollection<Job> _observableJobs;
-        private SortParams _sortParams;
-        private FilterParams _filterParams;
         private ISortHandler _sortHandler;
         private IFilterHandler _filterHandler;
 
@@ -51,12 +49,22 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 
         public void OnSortRequested(object sender, SortParams args)
         {
-
+            _sortHandler.Params = args;
+            UpdateJobs();
         }
 
         public void OnFilterRequested(object sender, FilterParams args)
         {
+            _filterHandler.Params = args;
+            UpdateJobs();
+        }
 
+        private void UpdateJobs()
+        {
+            IEnumerable<Job> jobsCopy = new HashSet<Job>(_userJobs);
+            jobsCopy = _filterHandler.Handle(jobsCopy);
+            jobsCopy = _sortHandler.Handle(jobsCopy);
+            _observableJobs.Intersect(jobsCopy);
         }
 
         private void CloseView()

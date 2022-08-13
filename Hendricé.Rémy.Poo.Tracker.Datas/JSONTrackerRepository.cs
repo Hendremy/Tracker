@@ -22,7 +22,15 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
 
         public IEnumerable<Job> GetUserJobs(string code)
         {
-            return new HashSet<Job>();
+            var aa = new DaySpan(DateTime.Now, DateTime.Now.AddDays(5));
+            var bb = new DaySpan(DateTime.Now, DateTime.Now.AddDays(5));
+            var a = new Job("AAAAAAAAAAAAAAAA", "A", new Planning("A"), new TimeReport(aa, bb));
+            var b = new Job("Bachibouzouk", "B", new Planning("B"), new TimeReport(aa, bb));
+            var c = new Job("C", "C", new Planning("C"), new TimeReport(aa, bb));
+
+            var ah = new HashSet<Job>();
+            ah.Add(a); ah.Add(b); ah.Add(c);
+            return ah;
         }
 
         public IEnumerable<UserCredentials> GetUsersCredentials()

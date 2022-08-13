@@ -30,10 +30,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             sb.Append(JOBLIST_HEADER);
             foreach(Job job in items)
             {
-                string expectedSpan = $"{job.TimeReport.ExpectedStartDate} => {job.TimeReport.ExpectedEndDate}";
+                string expectedSpan = $"{job.TimeReport.ExpectedStartDate.ToShortDateString()} => {job.TimeReport.ExpectedEndDate.ToShortDateString()}";
                 string actualSpan = ActualSpanToString(job);
                 string status = job.GetStatusString();
                 string jobRow = $"\n{job.Planning,-30}|{ job.Description,-25}|{ expectedSpan,-32}|{ status,-10}|{ actualSpan,-35}|{job.GetDelay(),-15}";
+                sb.Append(jobRow);
             }
             sb.Append('\n');
             return sb.ToString();
@@ -41,8 +42,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         private string ActualSpanToString(Job job) => job.GetStatus() switch
         {
-            JobStatus.Done => $"{job.TimeReport.ActualStartDate} => {job.TimeReport.ActualEndDate}",
-            JobStatus.Doing => $"{job.TimeReport.ActualStartDate} => Indéfini",
+            JobStatus.Done => $"{job.TimeReport.ActualStartDate.ToShortDateString()} => {job.TimeReport.ActualEndDate.ToShortDateString()}",
+            JobStatus.Doing => $"{job.TimeReport.ActualStartDate.ToShortDateString()} => Indéfini",
             _ => "Indéfinies"
         };
     }

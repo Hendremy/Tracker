@@ -22,7 +22,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
             set => _filterParams = value;
         }
 
-        public IEnumerable<Job> handle(IEnumerable<Job> jobs)
+        public IEnumerable<Job> Handle(IEnumerable<Job> jobs)
         {
             return _filterService.Filter(jobs, _filterParams);
         }
