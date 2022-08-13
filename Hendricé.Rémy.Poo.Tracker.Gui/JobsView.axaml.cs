@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Hendricé.Rémy.Poo.Tracker.Domains;
@@ -11,28 +12,52 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
     public partial class JobsView : UserControl, IJobsView
     {
-        public JobsView()
-        {
-            InitializeComponent();
-        }
+        private UserControl _sortControls;
+        private UserControl _filterControls;
 
         public event EventHandler<SortParams> SortRequested;
         public event EventHandler<FilterParams> FilterRequested;
         public event EventHandler QuitRequested;
 
+
+        public JobsView()
+        {
+            InitializeComponent();
+            LocateControls();
+            InitSortControls();
+            InitFilterControls();
+        }
+
+        private void LocateControls()
+        {
+            _sortControls = this.FindControl<UserControl>("SortControls");
+            _filterControls = this.FindControl<UserControl>("FilterControls");
+        }
+
+        private void InitSortControls()
+        {
+            var sortControls = new SortControls();
+            _sortControls.Content = sortControls;
+        }
+
+        private void InitFilterControls()
+        {
+            var filterControls = new FilterControls();
+            _filterControls.Content = filterControls;
+            filterControls.FilterRequested += OnFilterRequested;
+        }
+
         public void Close()
         {
-            throw new NotImplementedException();
+
         }
 
         public void ShowConflicts(IEnumerable<JobConflict> conflicts)
         {
-            throw new NotImplementedException();
         }
 
         public void Update(IEnumerable<Job> jobs)
         {
-            throw new NotImplementedException();
         }
 
         private void InitializeComponent()
@@ -40,19 +65,14 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void SortParameter_Selected(object? sender, SelectionChangedEventArgs args)
+        private void OnFilterRequested(object? sender, FilterParams args)
         {
-
+            FilterRequested?.Invoke(sender, args);
         }
 
-        private void FilterParameter_Selected(object? sender, SelectionChangedEventArgs args)
+        private void OnSortRequested(object? sender, SortParams args)
         {
-
-        }
-
-        private void FilterField_Changed(object? sender, RoutedEventArgs args)
-        {
-
+            SortRequested?.Invoke(sender, args);
         }
     }
 }

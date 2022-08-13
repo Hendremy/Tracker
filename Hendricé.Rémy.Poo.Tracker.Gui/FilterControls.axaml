@@ -1,0 +1,21 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Hendricé.Rémy.Poo.Tracker.Gui.FilterControls">
+	<StackPanel Name="Filter" VerticalAlignment="Top" HorizontalAlignment="Center" Spacing="8">
+		<Label Target="FilterParam">Filtre :</Label>
+		<ComboBox Name="FilterParam" Width="300" SelectionChanged="FilterParam_Selected">
+
+		</ComboBox>
+		<Label Name="ValueLabel" Target="FilterValue" IsVisible="False">Contient :</Label>
+		<TextBox Name="FilterValue" TextInput="FilterValue_Changed" IsVisible="False">
+
+		</TextBox>
+		<Label Name="DateLabel" Target="FilterDate" IsVisible="False">Date :</Label>
+		<DatePicker Name="FilterDate" IsVisible="False" SelectedDateChanged="FilterDate_Changed">
+
+		</DatePicker>
+	</StackPanel>
+</UserControl>
