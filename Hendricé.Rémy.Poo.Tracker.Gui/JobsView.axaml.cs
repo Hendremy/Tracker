@@ -8,9 +8,9 @@ using System.Collections.Generic;
 
 namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
-    public partial class JobsTab : UserControl, IJobsView
+    public partial class JobsView : UserControl, IJobsView
     {
-        public JobsTab()
+        public JobsView()
         {
             InitializeComponent();
         }

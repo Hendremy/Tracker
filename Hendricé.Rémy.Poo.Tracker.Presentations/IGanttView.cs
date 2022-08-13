@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
-    public interface ITabProvider
+    public interface IGanttView
     {
-        IJobsView GetJobsView();
-
-        //GanttSuperviser GetGanttSuperviser();
-
-        //RapportSuperviser GetRapportSuperviser();
     }
 }

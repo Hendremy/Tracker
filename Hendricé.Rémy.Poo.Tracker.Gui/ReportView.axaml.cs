@@ -1,12 +1,13 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Hendricé.Rémy.Poo.Tracker.Presentations;
 
 namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
-    public partial class GanttTab : UserControl
+    public partial class ReportView : UserControl, IReportView
     {
-        public GanttTab()
+        public ReportView()
         {
             InitializeComponent();
         }

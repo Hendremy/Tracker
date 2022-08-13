@@ -29,8 +29,14 @@
     <ProjectReference Include="..\Hendricé.Rémy.Poo.Tracker.Presentations\Hendricé.Rémy.Poo.Tracker.Presentations.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="JobsTab.axaml.cs">
-      <DependentUpon>JobsTab.axaml</DependentUpon>
+    <Compile Update="GanttView.axaml.cs">
+      <DependentUpon>GanttView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="JobsView.axaml.cs">
+      <DependentUpon>JobsView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="ReportView.axaml.cs">
+      <DependentUpon>ReportView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

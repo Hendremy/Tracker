@@ -9,36 +9,70 @@ using System;
 
 namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
-    public partial class App : Application, ITabProvider
+    public partial class App : Application
     {
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
         }
 
-        private ITrackerRepository _repository;
-        private IAuthenticate _authenticator;
+        private readonly SuperviserCreator _superviserCreator = new SuperviserCreator();
         private MainSuperviser _mainSuperviser;
 
         public override void OnFrameworkInitializationCompleted()
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                _repository = new JSONTrackerRepository("../../../../../json", "users.json", "plannings");
-                _authenticator = new Authenticator();
-
-                var mainWindow = new MainWindow();
+                var mainWindow = CreateMainView();
                 desktop.MainWindow = mainWindow;
-                CreateMainSuperviser(mainWindow);
                 desktop.MainWindow.Opened += MainWindow_Opened;
             }
 
             base.OnFrameworkInitializationCompleted();
         }
 
-        private void CreateAuthenticateSuperviser(AuthenticateWindow view)
+        private MainWindow CreateMainView()
         {
-            var authSuperviser = new AuthenticateSuperviser(view, _repository, _authenticator);
+            var mainWindow = new MainWindow();
+            var superviser = _superviserCreator.CreateMainSuperviser(mainWindow);
+            CreateTabViews(mainWindow, superviser);
+            return mainWindow;
+        }
+
+        private void CreateTabViews(MainWindow mainWindow, MainSuperviser mainSuperviser)
+        {
+            CreateJobsView(mainWindow, mainSuperviser);
+            CreateGanttView(mainWindow, mainSuperviser);
+            CreateReportView(mainWindow, mainSuperviser);
+        }
+
+        private void CreateJobsView(MainWindow mainWindow, MainSuperviser mainSuperviser)
+        {
+            var jobsView = new JobsView();
+            mainWindow.AddJobsView(jobsView);
+            var jobsSuperviser = _superviserCreator.CreateJobsSuperviser(jobsView);
+            mainSuperviser.UserAuthentified += jobsSuperviser.OnUserAuthentified;
+        }
+
+        private void CreateGanttView(MainWindow mainWindow, MainSuperviser mainSuperviser)
+        {
+            var ganttView = new GanttView();
+            mainWindow.AddGanttView(ganttView);
+            var ganttSuperviser = _superviserCreator.CreateGanttSuperviser(ganttView);
+            mainSuperviser.UserAuthentified += ganttSuperviser.OnUserAuthentified;
+        }
+
+        private void CreateReportView(MainWindow mainWindow, MainSuperviser mainSuperviser)
+        {
+            var reportView = new ReportView();
+            mainWindow.AddReportView(reportView);
+            var reportSuperviser = _superviserCreator.CreateReportSuperviser(reportView);
+            mainSuperviser.UserAuthentified += reportSuperviser.OnUserAuthentified;
+        }
+
+        private void CreateAuthenticateWindow(AuthenticateWindow view)
+        {
+            var authSuperviser = _superviserCreator.CreateAuthenticateSuperviser(view);
             authSuperviser.UserAuthentified += _mainSuperviser.OnUserAuthentified;
         }
 
@@ -50,15 +84,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
                 SystemDecorations = SystemDecorations.BorderOnly
             };
 
-            CreateAuthenticateSuperviser(authenticateWindow);
+            CreateAuthenticateWindow(authenticateWindow);
 
             authenticateWindow.ShowDialog(sender as Window);
-        }
-
-        private void CreateMainSuperviser(MainWindow mainwindow)
-        {
-            var view = new MainWindow();
-            _mainSuperviser = new MainSuperviser(view, this);
         }
 
         private void Superviser_AboutToQuit(object sender, EventArgs args)
@@ -67,29 +95,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             {
                 desktop.Shutdown(0);
             }
-        }
-
-        private SortHandler InitSortHandler()
-        {
-            var startdate = new BaseSort();
-            var status = new StatusSort(startdate);
-            var planningsort = new PlanningSort(status);
-            return new SortHandler(planningsort, new SortParams());
-        }
-
-        private FilterHandler InitFilterHandler()
-        {
-            var date = new BaseFilter();
-            var status = new StatusFilter(date);
-            var planning = new PlanningFilter(status);
-            return new FilterHandler(planning, new FilterParams());
-        }
-
-        public JobsTab GetJobsTab()
-        {
-            var jobsTab = new JobsTab();
-            new JobsSuperviser(jobsTab, );
-            return jobsTab;
         }
     }
 }

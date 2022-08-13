@@ -10,18 +10,18 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
     public class MainSuperviser
     {
-        private readonly ITabProvider _superviserProvider;
         private readonly IMainView _view;
 
-        public MainSuperviser(IMainView view, ITabProvider superviserProvider)
+        public event EventHandler<string> UserAuthentified;
+
+        public MainSuperviser(IMainView view)
         {
             _view = view;
-            _superviserProvider = superviserProvider;
         }
 
         public void OnUserAuthentified(object sender, string code)
         {
-
+            UserAuthentified?.Invoke(sender, code);
         }
 
     }

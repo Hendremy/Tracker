@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Domains
 {
-    public class JobConflictDetector : IDetectConflict
+    public class ConflictDetector : IDetectConflict
     {
         public IEnumerable<JobConflict> DetectConflicts(IEnumerable<Job> jobs)
         {
