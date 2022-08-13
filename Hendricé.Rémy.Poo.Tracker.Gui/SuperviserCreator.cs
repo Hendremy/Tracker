@@ -27,9 +27,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             return new AuthenticateSuperviser(view, _repository, GetAuthenticator());
         }
 
-        public JobsSuperviser CreateJobsSuperviser(IJobsView view)
+        public JobListSuperviser CreateJobsSuperviser(IJobListView view)
         {
-            return new JobsSuperviser(view, _repository, GetSortHandler(), GetFilterHandler(), GetConflictDetector());
+            return new JobListSuperviser(view, _repository, GetSortHandler(), GetFilterHandler(), GetConflictDetector());
         }
 
         public GanttSuperviser CreateGanttSuperviser(IGanttView view)

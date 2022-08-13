@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
-    public interface IJobsView
+    public interface IJobListView
     {
         public event EventHandler<SortParams> SortRequested;
         public event EventHandler<FilterParams> FilterRequested;

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
-    public partial class JobsView : UserControl, IJobsView
+    public partial class JobListView : UserControl, IJobListView
     {
         private UserControl _sortControls;
         private UserControl _filterControls;
@@ -20,7 +20,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         public event EventHandler QuitRequested;
 
 
-        public JobsView()
+        public JobListView()
         {
             InitializeComponent();
             LocateControls();

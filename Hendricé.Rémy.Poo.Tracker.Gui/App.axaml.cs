@@ -41,14 +41,14 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         private void CreateTabViews(MainWindow mainWindow, MainSuperviser mainSuperviser)
         {
-            CreateJobsView(mainWindow, mainSuperviser);
+            CreateJobListView(mainWindow, mainSuperviser);
             CreateGanttView(mainWindow, mainSuperviser);
             CreateReportView(mainWindow, mainSuperviser);
         }
 
-        private void CreateJobsView(MainWindow mainWindow, MainSuperviser mainSuperviser)
+        private void CreateJobListView(MainWindow mainWindow, MainSuperviser mainSuperviser)
         {
-            var jobsView = new JobsView();
+            var jobsView = new JobListView();
             mainWindow.AddJobsView(jobsView);
             var jobsSuperviser = _superviserCreator.CreateJobsSuperviser(jobsView);
             mainSuperviser.UserAuthentified += jobsSuperviser.OnUserAuthentified;

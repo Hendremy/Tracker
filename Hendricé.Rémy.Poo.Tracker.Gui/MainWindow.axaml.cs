@@ -22,7 +22,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             LocateControls();
         }
 
-        public void AddJobsView(JobsView jobsTab)
+        public void AddJobsView(JobListView jobsTab)
         {
             _jobsTab.Content = jobsTab;
         }

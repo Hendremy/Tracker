@@ -1,0 +1,25 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Hendricé.Rémy.Poo.Tracker.Gui.JobControl">
+	<Border BorderThickness="3" BorderBrush="Gray" CornerRadius="10">
+		<StackPanel Margin="8" Spacing="8">
+			<StackPanel Orientation="Horizontal">
+				<Label FontWeight="Bold">Chantier</Label>
+				<TextBlock Name="SetupName"> - </TextBlock>
+				<Label FontWeight="Bold">Tâche</Label>
+				<TextBlock Name="Description"> - </TextBlock>
+			</StackPanel>
+			<Label FontWeight="Bold">Dates Prévues</Label>
+			<TextBlock Name="ExpectedDates">-</TextBlock>
+			<Label FontWeight="Bold">Statut</Label>
+			<StackPanel Orientation="Horizontal">
+				<Button Click="StartMission_Click" Name="ActualStartDate" Content="Commencer"/>
+				<Button Click="FinishMission_Click" Name="ActualFinishDate" Content="Terminer"/>
+			</StackPanel>
+			<TextBlock Name="Delay"> Jours de retards : 0 jour </TextBlock>
+		</StackPanel>
+	</Border>
+</UserControl>

@@ -8,16 +8,16 @@ using System.Linq;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
-    public class JobsSuperviser
+    public class JobListSuperviser
     {
-        private readonly IJobsView _view;
+        private readonly IJobListView _view;
         private readonly ITrackerRepository _repository;
         private IEnumerable<Job> _userJobs;
         private ISortHandler _sortHandler;
         private IFilterHandler _filterHandler;
         private IDetectConflict _conflictDetector;
 
-        public JobsSuperviser(IJobsView view, ITrackerRepository repository, 
+        public JobListSuperviser(IJobListView view, ITrackerRepository repository, 
             ISortHandler sortHandler, IFilterHandler filterHandler, IDetectConflict conflictDetector)
         {
             _repository = repository;
