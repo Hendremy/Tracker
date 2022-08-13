@@ -32,8 +32,8 @@
     <Compile Update="GanttView.axaml.cs">
       <DependentUpon>GanttView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="JobsView.axaml.cs">
-      <DependentUpon>JobsView.axaml</DependentUpon>
+    <Compile Update="JobListView.axaml.cs">
+      <DependentUpon>JobListView.axaml</DependentUpon>
     </Compile>
     <Compile Update="ReportView.axaml.cs">
       <DependentUpon>ReportView.axaml</DependentUpon>
