@@ -11,6 +11,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
     {
 
         IEnumerable<UserCredentials> GetUsersCredentials();
-        IEnumerable<Job> GetUserJobs(string code);
+        IEnumerable<Job> GetUserJobs(string code, out string errormessage);
     }
 }

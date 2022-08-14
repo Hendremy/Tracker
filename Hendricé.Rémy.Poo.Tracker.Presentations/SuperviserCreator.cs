@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hendricé.Rémy.Poo.Tracker.Cli
+namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
-    public class SuperviserCreator : IProvideSuperviser
+    public class SuperviserCreator : IProvideJobSuperviser
     {
         private ITrackerRepository _repository;
         public SuperviserCreator()
@@ -19,7 +19,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         public MainSuperviser CreateMainSuperviser(IMainView view)
         {
-            return new MainSuperviser(view);
+            return new MainSuperviser(view, _repository);
         }
 
         public AuthenticateSuperviser CreateAuthenticateSuperviser(IAuthenticateView view)
@@ -29,7 +29,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         public JobListSuperviser CreateJobsSuperviser(IJobListView view)
         {
-            return new JobListSuperviser(view, _repository, GetSortHandler(), GetFilterHandler(), GetConflictDetector(), this);
+            return new JobListSuperviser(view, GetSortHandler(), GetFilterHandler(), GetConflictDetector(), this);
         }
 
         public GanttSuperviser CreateGanttSuperviser(IGanttView view)

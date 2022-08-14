@@ -51,7 +51,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             var jobsView = new JobListView();
             mainWindow.AddJobsView(jobsView);
             var jobsSuperviser = _superviserCreator.CreateJobsSuperviser(jobsView);
-            mainSuperviser.UserAuthentified += jobsSuperviser.OnUserAuthentified;
+            mainSuperviser.JobListSuperviser = jobsSuperviser;
         }
 
         private void CreateGanttView(MainWindow mainWindow, MainSuperviser mainSuperviser)
@@ -59,7 +59,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             var ganttView = new GanttView();
             mainWindow.AddGanttView(ganttView);
             var ganttSuperviser = _superviserCreator.CreateGanttSuperviser(ganttView);
-            mainSuperviser.UserAuthentified += ganttSuperviser.OnUserAuthentified;
+            mainSuperviser.GanttSuperviser = ganttSuperviser;
         }
 
         private void CreateReportView(MainWindow mainWindow, MainSuperviser mainSuperviser)
@@ -67,7 +67,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             var reportView = new ReportView();
             mainWindow.AddReportView(reportView);
             var reportSuperviser = _superviserCreator.CreateReportSuperviser(reportView);
-            mainSuperviser.UserAuthentified += reportSuperviser.OnUserAuthentified;
+            mainSuperviser.ReportSuperviser = reportSuperviser;
         }
 
         private void CreateAuthenticateWindow(AuthenticateWindow view)

@@ -17,7 +17,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         public event EventHandler<JobViewCreatedEventArgs> JobViewCreated;
 
         public void Close();
-
         public void ShowConflicts(IEnumerable<JobConflict> conflicts);
         public void Update(IEnumerable<Job> jobs);
     }

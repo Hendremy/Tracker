@@ -96,6 +96,4 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
             return false;
         }
     }
-
-    
 }

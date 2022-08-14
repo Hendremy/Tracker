@@ -11,18 +11,18 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
     public class JobListSuperviser
     {
         private readonly IJobListView _view;
-        private readonly ITrackerRepository _repository;
-        private IEnumerable<Job> _userJobs;
-        private ISortHandler _sortHandler;
-        private IFilterHandler _filterHandler;
-        private IDetectConflict _conflictDetector;
-        private IProvideSuperviser _superviserProvider;
+        private readonly ISortHandler _sortHandler;
+        private readonly IFilterHandler _filterHandler;
+        private readonly IDetectConflict _conflictDetector;
+        private readonly IProvideJobSuperviser _superviserProvider;
 
-        public JobListSuperviser(IJobListView view, ITrackerRepository repository, 
+        private IEnumerable<Job> _userJobs;
+        private ObservableCollection<Job> _observableJobs;//TODO: P-e pas besoin d'en faire une collection observable
+
+        public JobListSuperviser(IJobListView view, 
             ISortHandler sortHandler, IFilterHandler filterHandler, 
-            IDetectConflict conflictDetector, IProvideSuperviser superviserProvider)
+            IDetectConflict conflictDetector, IProvideJobSuperviser superviserProvider)
         {
-            _repository = repository;
             _view = view;
             _sortHandler = sortHandler;
             _filterHandler = filterHandler;
@@ -39,9 +39,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             _view.JobViewCreated += OnJobViewCreated;
         }
 
-        public void OnUserAuthentified(object sender, string code)
+        public void SetJobs(IList<Job> jobs, ObservableCollection<Job> observableJobs)
         {
-            _userJobs = _repository.GetUserJobs(code);
+            _userJobs = jobs;
             _view.ShowConflicts(_conflictDetector.DetectConflicts(_userJobs));
             _view.Update(_userJobs);
         }
@@ -68,7 +68,17 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             IEnumerable<Job> jobsCopy = new HashSet<Job>(_userJobs);
             jobsCopy = _filterHandler.Handle(jobsCopy);
             jobsCopy = _sortHandler.Handle(jobsCopy);
+            RefreshObservableJobs(jobsCopy);
             _view.Update(jobsCopy);
+        }
+
+        private void RefreshObservableJobs(IEnumerable<Job> jobsToAdd)
+        {
+            _observableJobs.Clear();
+            foreach(Job job in jobsToAdd)
+            {
+                _observableJobs.Add(job);
+            }
         }
 
         private void OnJobViewCreated(object sender, JobViewCreatedEventArgs args)

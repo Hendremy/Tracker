@@ -8,10 +8,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
     public interface IMainView
     {
-        //public void InitJobsTab(JobsSuperviser superviser);
-
-        //public void InitGanttTab(GanttSuperviser superviser);
-
-        //public void InitRapportTab(RapportSuperviser superviser);
+        public void ShowInternalError(string message);
     }
 }

@@ -45,6 +45,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             _reportTab = this.FindControl<TabItem>("Report");
         }
 
-
+        public void ShowInternalError(string message)
+        {
+            var errWin = new ErrorWindow();
+            errWin.ShowError(this, message);
+        }
     }
 }

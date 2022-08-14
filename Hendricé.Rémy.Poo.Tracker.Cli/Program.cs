@@ -35,7 +35,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             var sorter = initSortHandler();
             var filter = initFilterHandler();
             var conflictDetector = new ConflictDetector();
-            var mainSuperviser = new JobListSuperviser(view, repo, sorter, filter, conflictDetector, null);
+            var mainSuperviser = new JobListSuperviser(view, sorter, filter, conflictDetector, null);
             return mainSuperviser;
         }
 

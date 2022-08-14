@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
-    public interface IProvideSuperviser
+    public interface IProvideJobSuperviser
     {
         public JobSuperviser CreateJobSuperviser(IJobView view, Job job);
     }
