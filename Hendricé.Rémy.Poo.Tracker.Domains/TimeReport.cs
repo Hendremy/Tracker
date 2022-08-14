@@ -42,16 +42,16 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
             set => _actual.End = value;
         }
 
-        public double GetDelay()
+        public int GetDelay()
         {
-            double delay;
+            int delay;
             if (GetStatus() == JobStatus.Done)
             {
-                delay = (ActualStart - Expected.Start).TotalDays;
+                delay = (ActualStart - Expected.Start).Days;
             }
             else
             {
-                delay = (Expected.Start - DateTime.Now).TotalDays;
+                delay = (Expected.Start - DateTime.Now).Days;
             }
             return Math.Max(0, delay);
         }
@@ -59,13 +59,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
         public JobStatus GetStatus()
         {
             JobStatus reportStatus;
-            if(Actual != null)
+            if(Actual.Start != DateTime.MinValue)
             {
-                if(ActualEnd != DateTime.MinValue)
-                {
-                    reportStatus = JobStatus.Done;
-                }
-                reportStatus = JobStatus.Doing;
+                reportStatus = ActualEnd != DateTime.MinValue ? JobStatus.Done : JobStatus.Doing;
             }
             else
             {
@@ -76,8 +72,28 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
 
         public bool HasDate(DateTime date)
         {
-            return ExpectedEndDate == date || ExpectedStartDate == date;
-                //|| ActualStartDate == date || ActualEndDate == date;
+            return ExpectedStartDate == date || ExpectedEndDate == date
+                || ActualStartDate == date || ActualEndDate == date;
+        }
+
+        public bool Start()
+        {
+            if(GetStatus() == JobStatus.Todo)
+            {
+                _actual.Start = DateTime.Now;
+                return true;
+            }
+            return false;
+        }
+
+        public bool End()
+        {
+            if(GetStatus() == JobStatus.Doing)
+            {
+                _actual.End = DateTime.Now;
+                return true;
+            }
+            return false;
         }
     }
 

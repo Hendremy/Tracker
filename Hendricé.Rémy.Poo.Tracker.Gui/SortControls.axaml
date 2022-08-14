@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Hendricé.Rémy.Poo.Tracker.Gui.SortControls">
-	<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Name="Sort" Spacing="8">
+	<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Name="Sort" Spacing="8" Margin="8">
 		<Label Target="SortParam">Trier par :</Label>
 		<ComboBox Name="SortParam" Width="300" SelectionChanged="SortParam_Selected">
 

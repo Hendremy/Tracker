@@ -12,6 +12,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             new Program();
         }
 
+        //TODO: utiliser superviser creator pour créer les superviser
         private Program()
         {
             var repository = new JSONTrackerRepository("../../../../../json", "users.json", "plannings");
@@ -34,7 +35,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             var sorter = initSortHandler();
             var filter = initFilterHandler();
             var conflictDetector = new ConflictDetector();
-            var mainSuperviser = new JobListSuperviser(view, repo, sorter, filter, conflictDetector);
+            var mainSuperviser = new JobListSuperviser(view, repo, sorter, filter, conflictDetector, null);
             return mainSuperviser;
         }
 

@@ -16,15 +16,18 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         private ISortHandler _sortHandler;
         private IFilterHandler _filterHandler;
         private IDetectConflict _conflictDetector;
+        private IProvideSuperviser _superviserProvider;
 
         public JobListSuperviser(IJobListView view, ITrackerRepository repository, 
-            ISortHandler sortHandler, IFilterHandler filterHandler, IDetectConflict conflictDetector)
+            ISortHandler sortHandler, IFilterHandler filterHandler, 
+            IDetectConflict conflictDetector, IProvideSuperviser superviserProvider)
         {
             _repository = repository;
             _view = view;
             _sortHandler = sortHandler;
             _filterHandler = filterHandler;
             _conflictDetector = conflictDetector;
+            _superviserProvider = superviserProvider;
             SubscribeToViewEvents();
         }
 
@@ -33,6 +36,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             _view.QuitRequested += OnQuitRequested;
             _view.SortRequested += OnSortRequested;
             _view.FilterRequested += OnFilterRequested;
+            _view.JobViewCreated += OnJobViewCreated;
         }
 
         public void OnUserAuthentified(object sender, string code)
@@ -65,6 +69,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             jobsCopy = _filterHandler.Handle(jobsCopy);
             jobsCopy = _sortHandler.Handle(jobsCopy);
             _view.Update(jobsCopy);
+        }
+
+        private void OnJobViewCreated(object sender, JobViewCreatedEventArgs args)
+        {
+            var jobSuperviser = _superviserProvider.CreateJobSuperviser(args.View, args.Job);
         }
 
         private void CloseView()

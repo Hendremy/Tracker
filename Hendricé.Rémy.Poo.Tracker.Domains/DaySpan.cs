@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Domains
 {
-    public record DaySpan
+    public struct DaySpan
     {
         private DateTime _start;
         private DateTime _end;
 
         public DaySpan(DateTime start, DateTime end)
         {
-            Start = start;
-            End = end;
+            _start = start;
+            _end = end;
         }
 
         public DateTime Start

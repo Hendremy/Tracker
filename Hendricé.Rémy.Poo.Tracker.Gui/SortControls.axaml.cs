@@ -65,6 +65,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         {
             bool ascending = _ascending.IsChecked != null ? (bool) _ascending.IsChecked : true;
             SortParams sortArgs = new SortParams(GetSelectedSortParam(), ascending);
+            SortRequested?.Invoke(this, sortArgs);
         }
 
         private void SortParam_Selected(object? sender, SelectionChangedEventArgs args)

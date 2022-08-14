@@ -5,6 +5,7 @@ using Avalonia.Markup.Xaml;
 using Hendricé.Rémy.Poo.Tracker.Domains;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
@@ -33,6 +34,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             _filterValue = this.FindControl<TextBox>("FilterValue");
             _dateLabel = this.FindControl<Label>("DateLabel");
             _filterDate = this.FindControl<DatePicker>("FilterDate");
+            _filterDate.SelectedDateChanged += FilterDate_Changed;
         }
 
         private void InitFilterOptions()
@@ -60,10 +62,14 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             FilterRequested?.Invoke(this, args);
         }
 
-        private void FilterValue_Changed(object? sender, TextInputEventArgs args)
+        private void FilterValue_Changed(object? sender, AvaloniaPropertyChangedEventArgs args)
         {
-            FilterParams filterArgs = new FilterParams(GetSelectedFilterParam(), args.Text);
-            FireFilterEvent(filterArgs);
+            string value = _filterValue.Text;
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                FilterParams filterArgs = new FilterParams(GetSelectedFilterParam(), _filterValue.Text);
+                FireFilterEvent(filterArgs);
+            }
         }
 
         private void FilterDate_Changed(object? sender, DatePickerSelectedValueChangedEventArgs args)
@@ -76,6 +82,16 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         {
             FilterOption opt = GetSelectedFilterParam();
             ShowHideFilterVal(opt);
+            if(GetSelectedFilterParam() == FilterOption.Date)
+            {
+                FilterParams filterArgs = new FilterParams(GetSelectedFilterParam(), _filterDate.SelectedDate.ToString());
+                FireFilterEvent(filterArgs);
+            }
+            else
+            {
+                FilterParams filterArgs = new FilterParams(GetSelectedFilterParam(), _filterValue.Text);
+                FireFilterEvent(filterArgs);
+            }
         }
 
         private void ShowHideFilterVal(FilterOption opt)

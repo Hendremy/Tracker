@@ -29,6 +29,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         public event EventHandler<SortParams> SortRequested;
         public event EventHandler<FilterParams> FilterRequested;
         public event EventHandler QuitRequested;
+        public event EventHandler<JobViewCreatedEventArgs> JobViewCreated;
 
         private void Welcome()
         {

@@ -7,6 +7,7 @@ using Hendricé.Rémy.Poo.Tracker.Domains;
 using Hendricé.Rémy.Poo.Tracker.Presentations;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
@@ -14,14 +15,20 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
     {
         private UserControl _sortControls;
         private UserControl _filterControls;
+        private IDisposable _disposeBinding;
+
+        private ObservableCollection<JobControl> JobsObservable { get; init; }
 
         public event EventHandler<SortParams> SortRequested;
         public event EventHandler<FilterParams> FilterRequested;
+        public event EventHandler<JobViewCreatedEventArgs> JobViewCreated;
         public event EventHandler QuitRequested;
 
 
         public JobListView()
         {
+            JobsObservable = new ObservableCollection<JobControl>();
+            DataContext = JobsObservable;
             InitializeComponent();
             LocateControls();
             InitSortControls();
@@ -50,14 +57,29 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         public void Close()
         {
+            _disposeBinding.Dispose();
         }
 
         public void ShowConflicts(IEnumerable<JobConflict> conflicts)
         {
+            //TODO: Bouton en survol < ! > qui affiche les tâches en conflit sur mousehover
         }
 
         public void Update(IEnumerable<Job> jobs)
         {
+            JobsObservable.Clear();
+            foreach(Job job in jobs)
+            {
+                var jobControl = new JobControl();
+                FireJobViewCreated(jobControl, job);
+                JobsObservable.Add(jobControl);
+            }
+        }
+
+        private void FireJobViewCreated(IJobView view, Job job)
+        {
+            JobViewCreatedEventArgs args = new JobViewCreatedEventArgs(view, job);
+            JobViewCreated?.Invoke(this, args);
         }
 
         private void InitializeComponent()

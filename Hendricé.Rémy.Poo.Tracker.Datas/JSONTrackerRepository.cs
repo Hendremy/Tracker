@@ -23,10 +23,17 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
         public IEnumerable<Job> GetUserJobs(string code)
         {
             var aa = new DaySpan(DateTime.Now, DateTime.Now.AddDays(5));
-            var bb = new DaySpan(DateTime.Now, DateTime.Now.AddDays(5));
-            var a = new Job("AAAAAAAAAAAAAAAA", "A", new Planning("A"), new TimeReport(aa, bb));
-            var b = new Job("Bachibouzouk", "B", new Planning("B"), new TimeReport(aa, bb));
-            var c = new Job("C", "C", new Planning("C"), new TimeReport(aa, bb));
+            var aa2 = new DaySpan(DateTime.Now, DateTime.Now.AddDays(5));
+
+            var bb = new DaySpan(DateTime.Now, DateTime.Now.AddDays(7));
+            var bb2 = new DaySpan(DateTime.MinValue, DateTime.MinValue);
+
+            var cc = new DaySpan(DateTime.Now, DateTime.Now.AddDays(7));
+            var cc2 = new DaySpan(DateTime.Now, DateTime.MinValue);
+
+            var a = new Job("Aled", "Azzzz", new Planning("Azzz"), new TimeReport(aa, aa2));
+            var b = new Job("Bachibouzouk", "Bzzzzz", new Planning("Bzzz"), new TimeReport(bb, bb2));
+            var c = new Job("Czzzzzzz", "Czzzzzz", new Planning("Czzz"), new TimeReport(cc, cc2));
 
             var ah = new HashSet<Job>();
             ah.Add(a); ah.Add(b); ah.Add(c);

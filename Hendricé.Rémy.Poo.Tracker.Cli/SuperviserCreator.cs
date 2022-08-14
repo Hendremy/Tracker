@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hendricé.Rémy.Poo.Tracker.Gui
+namespace Hendricé.Rémy.Poo.Tracker.Cli
 {
     public class SuperviserCreator : IProvideSuperviser
     {

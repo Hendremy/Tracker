@@ -4,17 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Hendricé.Rémy.Poo.Tracker.Gui.FilterControls">
-	<StackPanel Name="Filter" VerticalAlignment="Top" HorizontalAlignment="Center" Spacing="8">
+	<StackPanel Name="Filter" VerticalAlignment="Top" HorizontalAlignment="Center" Spacing="8" Margin="8">
 		<Label Target="FilterParam">Filtre :</Label>
 		<ComboBox Name="FilterParam" Width="300" SelectionChanged="FilterParam_Selected">
 
 		</ComboBox>
 		<Label Name="ValueLabel" Target="FilterValue" IsVisible="False">Contient :</Label>
-		<TextBox Name="FilterValue" TextInput="FilterValue_Changed" IsVisible="False">
+		<TextBox Name="FilterValue" IsVisible="False" PropertyChanged="FilterValue_Changed">
 
 		</TextBox>
 		<Label Name="DateLabel" Target="FilterDate" IsVisible="False">Date :</Label>
-		<DatePicker Name="FilterDate" IsVisible="False" SelectedDateChanged="FilterDate_Changed">
+		<DatePicker Name="FilterDate" IsVisible="False">
 
 		</DatePicker>
 	</StackPanel>

@@ -6,17 +6,19 @@
              x:Class="Hendricé.Rémy.Poo.Tracker.Gui.JobListView">
 	<StackPanel>
 		<Expander HorizontalContentAlignment="Stretch" Header="Options de tri et filtre">
-			<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="20">
+			<WrapPanel Margin="8" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<UserControl Name="SortControls">
 					
 				</UserControl>
 				<UserControl Name="FilterControls">
 					
 				</UserControl>
-			</StackPanel>
+			</WrapPanel>
 		</Expander>
-		<StackPanel Name="Jobs">
-			
-		</StackPanel>
+		<DockPanel Name="Jobs">
+			<ItemsControl Name="JobList" Items="{Binding}">
+				
+			</ItemsControl>
+		</DockPanel>
 	</StackPanel>
 </UserControl>

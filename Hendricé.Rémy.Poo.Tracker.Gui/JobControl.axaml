@@ -5,21 +5,28 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Hendricé.Rémy.Poo.Tracker.Gui.JobControl">
 	<Border BorderThickness="3" BorderBrush="Gray" CornerRadius="10">
-		<StackPanel Margin="8" Spacing="8">
+		<StackPanel Orientation="Vertical" Spacing="8" MinWidth="300" MaxWidth="500">
+			<WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+				<TextBlock VerticalAlignment="Center" FontWeight="DemiBold" FontSize="20" Name="Name"></TextBlock>
+				<TextBlock VerticalAlignment="Center"></TextBlock>
+				<TextBlock VerticalAlignment="Center" FontWeight="DemiBold" Name="Planning"></TextBlock>
+			</WrapPanel>
+			<Label FontWeight="DemiBold">Dates Prévues</Label>
+			<TextBlock Name="ExpectedDates"></TextBlock>
 			<StackPanel Orientation="Horizontal">
-				<Label FontWeight="Bold">Chantier</Label>
-				<TextBlock Name="SetupName"> - </TextBlock>
-				<Label FontWeight="Bold">Tâche</Label>
-				<TextBlock Name="Description"> - </TextBlock>
+				<Label>Statut - </Label>
+				<TextBlock Name="Status"></TextBlock>
 			</StackPanel>
-			<Label FontWeight="Bold">Dates Prévues</Label>
-			<TextBlock Name="ExpectedDates">-</TextBlock>
-			<Label FontWeight="Bold">Statut</Label>
-			<StackPanel Orientation="Horizontal">
-				<Button Click="StartMission_Click" Name="ActualStartDate" Content="Commencer"/>
-				<Button Click="FinishMission_Click" Name="ActualFinishDate" Content="Terminer"/>
-			</StackPanel>
-			<TextBlock Name="Delay"> Jours de retards : 0 jour </TextBlock>
+			<WrapPanel Orientation="Horizontal">
+				<Button Click="StartJob_Click" Name="StartBtn" Content="Commencer" IsEnabled="True"/>
+				<Button Click="EndJob_Click" Name="EndBtn" Content="Terminer" IsEnabled="False"/>
+			</WrapPanel>
+			<TextBlock> Jours de retards :</TextBlock>
+			<WrapPanel Orientation="Horizontal" Margin="8">
+				<TextBlock Name="Delay">0</TextBlock>
+				<Label></Label>
+				<TextBlock>jour(s)</TextBlock>
+			</WrapPanel>
 		</StackPanel>
 	</Border>
 </UserControl>

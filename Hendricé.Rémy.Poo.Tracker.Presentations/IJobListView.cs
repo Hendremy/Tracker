@@ -14,6 +14,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         public event EventHandler<SortParams> SortRequested;
         public event EventHandler<FilterParams> FilterRequested;
         public event EventHandler QuitRequested;
+        public event EventHandler<JobViewCreatedEventArgs> JobViewCreated;
+
         public void Close();
 
         public void ShowConflicts(IEnumerable<JobConflict> conflicts);
