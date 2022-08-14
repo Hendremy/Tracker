@@ -12,11 +12,12 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             new Program();
         }
 
+        private readonly SuperviserCreator _superviserCreator = new SuperviserCreator();
+        private MainSuperviser _mainSuperviser;
+
         //TODO: utiliser superviser creator pour créer les superviser
         private Program()
         {
-            var repository = new JSONTrackerRepository("../../../../../json", "users.json", "plannings");
-            var authenticator = new Authenticator();
             var mainSuperviser = CreateJobsSuperviser(repository);
             CreateAuthentifySuperviser(mainSuperviser, repository, authenticator);
         }
@@ -29,30 +30,26 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             authSuperviser.UserAuthentified += mainSuperviser.OnUserAuthentified;
         }
 
-        private JobListSuperviser CreateJobsSuperviser(ITrackerRepository repo)
+        private MainView CreateMainView()
         {
-            var view = new MainView();
-            var sorter = initSortHandler();
-            var filter = initFilterHandler();
-            var conflictDetector = new ConflictDetector();
-            var mainSuperviser = new JobListSuperviser(view, sorter, filter, conflictDetector, null);
-            return mainSuperviser;
+            var mainView = new MainView();
+            _mainSuperviser = _superviserCreator.CreateMainSuperviser(mainView);
+            return mainView;
         }
 
-        private SortHandler initSortHandler()
+        private void CreateJobListView(MainView mainWindow, MainSuperviser mainSuperviser)
         {
-            var startdate = new BaseSort();
-            var status = new StatusSort(startdate);
-            var planningsort = new PlanningSort(status);
-            return new SortHandler(planningsort, new SortParams());
+            var jobsView = new JobListView();
+            mainWindow.AddJobsView(jobsView);
+            var jobsSuperviser = _superviserCreator.CreateJobsSuperviser(jobsView);
+            mainSuperviser.JobListSuperviser = jobsSuperviser;
         }
 
-        private FilterHandler initFilterHandler()
+        private void CreateAuthenticateWindow(AuthenticateView view)
         {
-            var date = new BaseFilter();
-            var status = new StatusFilter(date);
-            var planning = new PlanningFilter(status);
-            return new FilterHandler(planning, new FilterParams());
+            var authSuperviser = _superviserCreator.CreateAuthenticateSuperviser(view);
+            authSuperviser.UserAuthentified += _mainSuperviser.OnUserAuthentified;
+            authSuperviser.AboutToQuit += Superviser_AboutToQuit;
         }
     }
 }

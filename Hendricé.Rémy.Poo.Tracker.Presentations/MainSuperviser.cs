@@ -42,8 +42,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             string errorMessage;
             _userJobs = new List<Job>(_repository.GetUserJobs(code, out errorMessage));
             var observableJobs = new ObservableCollection<Job>(_userJobs);
-            _jobListSuperviser.SetJobs(_userJobs, observableJobs);
-            _ganttSuperviser.SetObservableJobs(observableJobs);
+            _jobListSuperviser?.SetJobs(_userJobs, observableJobs);
+            _ganttSuperviser?.SetObservableJobs(observableJobs);
         }
 
     }
