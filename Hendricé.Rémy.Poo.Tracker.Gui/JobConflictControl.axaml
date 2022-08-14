@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Hendricé.Rémy.Poo.Tracker.Gui.JobConflictControl">
-	<Border BorderThickness="1" BorderBrush="White" CornerRadius="2" Margin="20">
+	<Border BorderThickness="1" BorderBrush="DarkOrange" CornerRadius="5" Margin="20" Padding="10">
 		<Grid ColumnDefinitions="100,100,150*" RowDefinitions="Auto,Auto,Auto"  Margin="5">
-			<TextBlock Grid.Row="0" Grid.Column="0" >Chantier</TextBlock>
-			<TextBlock Grid.Row="0" Grid.Column="1">Tâche</TextBlock>
-			<TextBlock Grid.Row="0" Grid.Column="2">Dates</TextBlock>
+			<TextBlock Foreground="DarkOrange" Grid.Row="0" Grid.Column="0" >Chantier</TextBlock>
+			<TextBlock Foreground="DarkOrange" Grid.Row="0" Grid.Column="1">Tâche</TextBlock>
+			<TextBlock Foreground="DarkOrange" Grid.Row="0" Grid.Column="2">Dates</TextBlock>
 			<TextBlock Grid.Row="1" Grid.Column="0" Name="PlanningA"></TextBlock>
 			<TextBlock Grid.Row="1" Grid.Column="1" Name="NameA"></TextBlock>
 			<TextBlock Grid.Row="2" Grid.Column="0" Name="PlanningB"></TextBlock>

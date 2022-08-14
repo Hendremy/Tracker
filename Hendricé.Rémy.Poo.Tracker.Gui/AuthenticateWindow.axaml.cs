@@ -47,8 +47,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         public void ShowInternalError(string message)
         {
-            //Error Pop-up window à la place mieux
-            ShowPasswordError(message);
+            var errWin = new ErrorWindow();
+            errWin.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            errWin.ShowError(this, message);
         }
 
         public void ShowLoginError(string message)

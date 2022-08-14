@@ -52,7 +52,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
             }
             catch (Exception ex)
             {
-                if(ex is JsonReaderException || ex is InvalidCastException || ex is KeyNotFoundException)
+                if(ex is JsonReaderException || ex is InvalidCastException || ex is KeyNotFoundException || ex is NullReferenceException)
                 {
                     throw new TrackerRepositoryException($"Fichier {_usersFileName} corrompu");
                 }
@@ -79,8 +79,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
         private UserCredentials ParseJUser(JToken obj)
         {
             JObject jUser = (JObject)obj;
-            var codeValue = (JValue)jUser["Code"];
-            var passwordValue = (JValue)jUser["Password"];
+            var codeValue = (JValue) jUser["Code"];
+            var passwordValue = (JValue) jUser["Password"];
             string code = codeValue.Value.ToString();
             string password = passwordValue.Value.ToString();
             return new UserCredentials(code, password.ToString());

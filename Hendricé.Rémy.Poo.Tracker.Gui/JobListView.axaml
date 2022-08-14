@@ -15,7 +15,7 @@
 				</UserControl>
 			</WrapPanel>
 		</Expander>
-		<UserControl Name="Conflicts" IsVisible="True">
+		<UserControl Name="Conflicts" IsVisible="False">
 			
 		</UserControl>
 		<DockPanel Name="Jobs" MaxHeight="600">
