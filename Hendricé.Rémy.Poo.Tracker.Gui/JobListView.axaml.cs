@@ -8,6 +8,7 @@ using Hendricé.Rémy.Poo.Tracker.Presentations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
@@ -15,8 +16,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
     {
         private UserControl _sortControls;
         private UserControl _filterControls;
-        private IDisposable _disposeBinding;
-
+        private UserControl _conflictsControl;
         private ObservableCollection<JobControl> JobsObservable { get; init; }
 
         public event EventHandler<SortParams> SortRequested;
@@ -39,6 +39,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         {
             _sortControls = this.FindControl<UserControl>("SortControls");
             _filterControls = this.FindControl<UserControl>("FilterControls");
+            _conflictsControl = this.FindControl<UserControl>("Conflicts");
         }
 
         private void InitSortControls()
@@ -57,12 +58,17 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         public void Close()
         {
-            _disposeBinding.Dispose();
         }
 
         public void ShowConflicts(IEnumerable<JobConflict> conflicts)
         {
-            //TODO: Bouton en survol < ! > qui affiche les tâches en conflit sur mousehover
+            if(conflicts.Count() > 0)
+            {
+                var conflictsControl = new ConflictsControl();
+                conflictsControl.SetConflicts(conflicts);
+                _conflictsControl = conflictsControl;
+                _conflictsControl.IsVisible = true;
+            }
         }
 
         public void Update(IEnumerable<Job> jobs)

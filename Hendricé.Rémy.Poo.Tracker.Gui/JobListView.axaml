@@ -15,10 +15,19 @@
 				</UserControl>
 			</WrapPanel>
 		</Expander>
-		<DockPanel Name="Jobs">
-			<ItemsControl Name="JobList" Items="{Binding}">
-				
-			</ItemsControl>
+		<UserControl Name="Conflicts" IsVisible="False">
+			
+		</UserControl>
+		<DockPanel Name="Jobs" MaxHeight="600">
+			<ScrollViewer VerticalScrollBarVisibility="Visible">
+				<ItemsControl Name="JobList" Items="{Binding}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel Orientation="Horizontal"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+				</ItemsControl>
+			</ScrollViewer>
 		</DockPanel>
 	</StackPanel>
 </UserControl>

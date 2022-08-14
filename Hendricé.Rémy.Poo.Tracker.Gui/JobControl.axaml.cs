@@ -66,14 +66,16 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         private void UpdateStartDate()
         {
-            _startBtn.Content = _job.TimeReport.ActualStartDate.ToShortDateString();
+            DateTime startDate = _job.TimeReport.ActualStartDate;
+            _startBtn.Content = $"Commencée le {startDate.ToShortDateString()}";
             _startBtn.IsEnabled = false;
             _endBtn.IsEnabled = true;
         }
 
         private void UpdateEndDate()
         {
-            _endBtn.Content = _job.TimeReport.ActualEndDate.ToShortDateString();
+            DateTime endDate = _job.TimeReport.ActualEndDate;
+            _endBtn.Content = $"Terminée le {endDate.ToShortDateString()}";
             _endBtn.IsEnabled = false;
         }
 
