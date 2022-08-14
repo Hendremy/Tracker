@@ -15,11 +15,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private TextBlock _nameB;
         private ItemsControl _dates;
 
-        public JobConflictControl(JobConflict conflict)
+        public JobConflictControl()
         {
             InitializeComponent();
             LocateControls();
-            InitControl(conflict);
         }
 
         private void InitializeComponent()
@@ -36,7 +35,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             _dates = this.FindControl<ItemsControl>("Dates");
         }
 
-        private void InitControl(JobConflict conflict) 
+        public void InitConflict(JobConflict conflict) 
         {
             _planningA.Text = conflict.JobAPlanning;
             _nameA.Text = conflict.JobAName;

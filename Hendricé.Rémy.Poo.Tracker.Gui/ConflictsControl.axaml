@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Hendricé.Rémy.Poo.Tracker.Gui.ConflictsControl">
-	<Expander Name="Conflicts" IsVisible="False" Background="Purple" Foreground="Black">
-		<DockPanel Name="ConflictsPanel" MaxHeight="300" Background="Purple">
+	<Expander Name="Conflicts" Background="DarkOrange" Foreground="Black" HorizontalContentAlignment="Center">			
+		<DockPanel Name="ConflictsPanel" MaxHeight="300">
 			<ScrollViewer VerticalScrollBarVisibility="Visible">
 				<ItemsControl Name="ConflictList" Items="{Binding}">
 					<ItemsControl.ItemsPanel>

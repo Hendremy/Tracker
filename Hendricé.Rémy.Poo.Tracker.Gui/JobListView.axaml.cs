@@ -66,7 +66,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             {
                 var conflictsControl = new ConflictsControl();
                 conflictsControl.SetConflicts(conflicts);
-                _conflictsControl = conflictsControl;
+                _conflictsControl.Content = conflictsControl;
                 _conflictsControl.IsVisible = true;
             }
         }

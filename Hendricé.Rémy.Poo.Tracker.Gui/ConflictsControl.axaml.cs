@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using Hendricé.Rémy.Poo.Tracker.Domains;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,7 +29,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private void LocateControls()
         {
             _expander = this.FindControl<Expander>("Conflicts");
-            _expander.Header = "< ! > Des conflits entre vos tâches ont été détectés < ! >";
+            _expander.Header = GetHeader();
         }
 
         public void SetConflicts(IEnumerable<JobConflict> conflicts)
@@ -40,8 +41,20 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         {
             foreach(var conflict in conflicts)
             {
-                _conflicts.Add(new JobConflictControl(conflict));
+                var jobConflict = new JobConflictControl();
+                jobConflict.InitConflict(conflict);
+                _conflicts.Add(jobConflict);
             }
+        }
+
+        private TextBlock GetHeader()
+        {
+            var header = new TextBlock();
+            header.Text = "< ! > Des conflits entre vos tâches ont été détectés < ! >";
+            header.Foreground = Brushes.White;
+            header.TextAlignment = TextAlignment.Center;
+
+            return header;
         }
 
         
