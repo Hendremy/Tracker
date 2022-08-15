@@ -40,20 +40,45 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
             var name = jobObject.GetValue("Name").ToString();
             var description = jobObject.GetValue("Description").ToString();
             var technician = jobObject.GetValue("Technician").ToString();
-            var expStart = jobObject.GetValue("ExpStart").ToObject<DateTime>();
-            var expEnd = jobObject.GetValue("ExpEnd").ToObject<DateTime>();
+            var expStart = ParseExpectedDate(jobObject.GetValue("ExpStart"));
+            var expEnd = ParseExpectedDate(jobObject.GetValue("ExpEnd"));
             var actStart = ParseActualDate(jobObject.GetValue("ActStart"));
             var actEnd = ParseActualDate(jobObject.GetValue("ActEnd"));
             return new JobDTO(name, description, technician, expStart, expEnd, actStart, actEnd);
         }
 
-        private DateTime ParseActualDate(JToken jDate)
+        private bool TryParseDate(JToken jDate, out DateTime date)
         {
             string dateStr = jDate.ToString();
-            DateTime date;
             if (DateTime.TryParse(dateStr, out date))
             {
-                return date;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private DateTime ParseExpectedDate(JToken jDate)
+        {
+            DateTime outDate;
+            if (TryParseDate(jDate, out outDate))
+            {
+                return outDate;
+            }
+            else
+            {
+                throw new FormatException("Date non conforme");
+            }
+        }
+
+        private DateTime ParseActualDate(JToken jDate)
+        {
+            DateTime outDate;
+            if(TryParseDate(jDate, out outDate))
+            {
+                return outDate;
             }
             else
             {
