@@ -63,7 +63,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             try
             {
                 _repository.Dispose();
-                AboutToQuit?.Invoke(this, args);
+                _view.CloseView();
             }catch(TrackerRepositoryException ex)
             {
                 args.Cancel = true;
@@ -73,7 +73,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 
         private void OnForceQuit(object sender, EventArgs args)
         {
-            AboutToQuit?.Invoke(this, args);
+            _view.CloseView();
         }
     }
 }

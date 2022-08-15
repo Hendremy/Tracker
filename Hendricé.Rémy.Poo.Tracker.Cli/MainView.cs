@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Cli
@@ -16,11 +17,16 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         public void AskForceQuit(string message)
         {
             ShowInternalError(message);
-            string answer = AskString("Des erreurs sont survenues en essayant de quitter l'application\n Entrez \"QUIT\" pour forcer l'arrêt");
+            string answer = AskString("Des erreurs sont survenues en essayant de quitter l'application\n Entrez \"QUIT\" pour forcer l'arrêt ou Enter pour annuler");
             if (answer.Equals("QUIT"))
             {
                 QuitForced?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public void CloseView()
+        {
+
         }
 
         public void ShowInternalError(string message)

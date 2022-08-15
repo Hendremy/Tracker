@@ -13,6 +13,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         public event EventHandler<CancelEventArgs> QuitRequested;
         public event EventHandler QuitForced;
 
+        void CloseView();
         public void ShowInternalError(string message);
 
         public void AskForceQuit(string message);

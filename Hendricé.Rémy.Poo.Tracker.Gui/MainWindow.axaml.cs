@@ -64,6 +64,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         private void OnQuitRequested(object sender, CancelEventArgs args)
         {
+            this.Closing -= OnQuitRequested;
             QuitRequested?.Invoke(sender, args);
         }
 
@@ -72,11 +73,22 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             _errorWindow = new QuitErrorWindow();
             _errorWindow.ShowError(this, message);
             _errorWindow.QuitForced += OnQuitForced;
+            _errorWindow.Closed += OnErrorWindowClosed;
+        }
+
+        private void OnErrorWindowClosed(object? sender, EventArgs args)
+        {
+            SubscribeToWindowEvents();
         }
 
         private void OnQuitForced(object? sender, EventArgs args)
         {
             QuitForced?.Invoke(this, args);
+        }
+
+        public void CloseView()
+        {
+            this.Close();
         }
     }
 }
