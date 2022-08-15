@@ -95,5 +95,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
             }
             return false;
         }
+
+
+        public int Duration => Expected.Duration;
     }
 }

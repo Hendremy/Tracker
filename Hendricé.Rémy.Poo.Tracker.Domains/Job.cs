@@ -52,7 +52,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
         {
             if (TimeReport.Start())
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Start"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Status"));
             }
         }
 
@@ -60,8 +60,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
         {
             if (TimeReport.End())
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("End"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Status"));
             }
         }
+
+        public int Duration => TimeReport.Duration;
     }
 }

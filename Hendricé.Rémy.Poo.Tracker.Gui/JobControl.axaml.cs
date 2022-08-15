@@ -61,7 +61,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         public void OnDatePropertyChanged(object? sender, PropertyChangedEventArgs args)
         {
             string propertyChanged = args.PropertyName != null ? args.PropertyName : "";
-            UpdateStatus();
+            if (propertyChanged.Equals("Status"))
+            {
+                UpdateStatus();
+            }
         }
 
         private void UpdateStartDate()

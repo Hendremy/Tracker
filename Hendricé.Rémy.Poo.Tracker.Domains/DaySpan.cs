@@ -62,5 +62,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
         {
             return a < b ? a : b;
         }
+
+        public int Duration => Math.Max((End - Start).Days,0);
     }
 }
