@@ -12,44 +12,43 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
             new Program();
         }
 
-        private readonly SuperviserCreator _superviserCreator = new SuperviserCreator();
+        private readonly ITrackerServices _services;
+        private readonly SuperviserCreator _superviserCreator;
         private MainSuperviser _mainSuperviser;
 
-        //TODO: utiliser superviser creator pour créer les superviser
         private Program()
         {
-            var mainSuperviser = CreateJobsSuperviser(repository);
-            CreateAuthentifySuperviser(mainSuperviser, repository, authenticator);
+            _services = new TrackerServiceProvider("../../../../../json", "users.json", "plannings");
+            _superviserCreator = new SuperviserCreator(_services);
+            CreateMainView();
+            CreateAuthenticateView();
         }
 
-        private void CreateAuthentifySuperviser(JobListSuperviser mainSuperviser, ITrackerRepository repo, IAuthenticate auth)
+        private void CreateMainView()
         {
-            var view = new AuthenticateView();
-            var authSuperviser = new AuthenticateSuperviser(view, repo, auth);
-            view.ShowDialog();
-            authSuperviser.UserAuthentified += mainSuperviser.OnUserAuthentified;
+            var view = new MainView();
+            _mainSuperviser = _superviserCreator.CreateMainSuperviser(view);
+            CreateTabViews(_mainSuperviser);
         }
 
-        private MainView CreateMainView()
+        private void CreateTabViews(MainSuperviser mainSuperviser)
         {
-            var mainView = new MainView();
-            _mainSuperviser = _superviserCreator.CreateMainSuperviser(mainView);
-            return mainView;
+            CreateJobListView(mainSuperviser);
         }
 
-        private void CreateJobListView(MainView mainWindow, MainSuperviser mainSuperviser)
+        private void CreateJobListView(MainSuperviser mainSuperviser)
         {
             var jobsView = new JobListView();
-            mainWindow.AddJobsView(jobsView);
-            var jobsSuperviser = _superviserCreator.CreateJobsSuperviser(jobsView);
+            var jobsSuperviser = _superviserCreator.CreateJobListSuperviser(jobsView);
             mainSuperviser.JobListSuperviser = jobsSuperviser;
         }
 
-        private void CreateAuthenticateWindow(AuthenticateView view)
+        private void CreateAuthenticateView()
         {
+            var view = new AuthenticateView();
             var authSuperviser = _superviserCreator.CreateAuthenticateSuperviser(view);
+            view.ShowDialog();
             authSuperviser.UserAuthentified += _mainSuperviser.OnUserAuthentified;
-            authSuperviser.AboutToQuit += Superviser_AboutToQuit;
         }
     }
 }

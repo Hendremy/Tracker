@@ -42,6 +42,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         public void SetJobs(IList<Job> jobs, ObservableCollection<Job> observableJobs)
         {
             _userJobs = jobs;
+            _observableJobs = observableJobs;
             _view.ShowConflicts(_conflictDetector.DetectConflicts(_userJobs));
             _view.Update(_userJobs);
         }

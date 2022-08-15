@@ -41,8 +41,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         {
             string errorMessage;
             _userJobs = new List<Job>(_repository.GetUserJobs(code, out errorMessage));
+            if (!string.IsNullOrWhiteSpace(errorMessage)) _view.ShowInternalError(errorMessage);
             var observableJobs = new ObservableCollection<Job>(_userJobs);
-            _jobListSuperviser?.SetJobs(_userJobs, observableJobs);
+            _jobListSuperviser.SetJobs(_userJobs, observableJobs);
+            //Supervisers nullable car la CLI n'implémente pas ces superviseurs mais pourrait à l'avenir
             _ganttSuperviser?.SetObservableJobs(observableJobs);
         }
 

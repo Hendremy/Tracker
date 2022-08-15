@@ -1,6 +1,5 @@
 ﻿using Hendricé.Rémy.Poo.Tracker.Domains;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,24 +13,25 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
         private readonly string _dirLocation;
         private readonly string _usersFileName;
         private readonly string _planningsDirName;
-        private IList<PlanningDTO> _plannings;
+        private IParsePlanning _planningParser;
+        private IParseUser _userParser;
+        private IDictionary<PlanningDTO,string> _plannings;
 
-        //Pour mise à jour des dates => Objet date dans JobDTO qui partage référence avec Job puis réécriture de tout
-        //Ou bien dictionnaire <Job,JobDTO> qui récup jobdto à edit
-
-        public JSONTrackerRepository(string dirLocation, string usersFileName, string planningDirName)
+        public JSONTrackerRepository(IParsePlanning planningParser, IParseUser userParser, string dirLocation, string usersFileName, string planningDirName)
         {
+            _planningParser = planningParser;
+            _userParser = userParser;
             _dirLocation = dirLocation;
             _usersFileName = usersFileName;
             _planningsDirName = planningDirName;
-            _plannings = new List<PlanningDTO>();
+            _plannings = new Dictionary<PlanningDTO,string>();
         }
 
         public IEnumerable<Job> GetUserJobs(string user, out string errormessage)
         {
             errormessage = LoadPlannings();
             List<Job> jobs = new List<Job>();
-            foreach(PlanningDTO planningDTO in _plannings)
+            foreach(PlanningDTO planningDTO in _plannings.Keys)
             {
                 var planning = new Planning(planningDTO.Name);
                 var userJobs = planningDTO.Jobs.Where(j => j.Technician.Equals(user));
@@ -74,7 +74,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
         private string BuildFailedPlanningsMessage(IEnumerable<string> failedPaths)
         {
             var sb = new StringBuilder();
-            sb.Append($"{failedPaths.Count()} plannings n'ont pas pû être chargés :\n");
+            sb.Append($"Erreur - {failedPaths.Count()} planning(s) n'ont pas pû être chargés :\n");
             foreach (string path in failedPaths)
             {
                 sb.Append($"{path}\n");
@@ -106,49 +106,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
         private void ParsePlanning(string filePath)
         {
             string planningJson = File.ReadAllText(filePath);
-            JObject jPlanning = JObject.Parse(planningJson);
-            var jName = (JValue) jPlanning["Name"];
-            var jJobs = (JArray) jPlanning["Jobs"];
-            IEnumerable<JobDTO> jobsDTO = ParseJobs(jJobs);
-            string name = jName.Value.ToString();
-            _plannings.Add(new PlanningDTO(name, filePath, jobsDTO));
-        }
-
-        private IEnumerable<JobDTO> ParseJobs(JArray jJobs)
-        {
-            ISet<JobDTO> jobsDTO = new HashSet<JobDTO>();
-            foreach(JToken jJob in jJobs)
-            {
-                jobsDTO.Add(ParseJob(jJob));
-            }
-            return jobsDTO;
-        }
-
-        private JobDTO ParseJob(JToken jJob)
-        {
-            JObject jobObject = (JObject)jJob;
-            var name = jobObject.GetValue("Name").ToString();
-            var description = jobObject.GetValue("Description").ToString();
-            var technician = jobObject.GetValue("Technician").ToString();
-            var expStart = jobObject.GetValue("ExpStart").ToObject<DateTime>();
-            var expEnd = jobObject.GetValue("ExpEnd").ToObject<DateTime>();
-            var actStart = ParseActualDate(jobObject.GetValue("ActStart"));
-            var actEnd = ParseActualDate(jobObject.GetValue("ActEnd"));
-            return new JobDTO(name, description, technician, expStart, expEnd, actStart, actEnd);
-        }
-
-        private DateTime ParseActualDate(JToken jDate)
-        {
-            string dateStr = jDate.ToString();
-            DateTime date;
-            if(DateTime.TryParse(dateStr, out date))
-            {
-                return date;
-            }
-            else
-            {
-                return DateTime.MinValue;
-            }
+            var planningDTO = _planningParser.Parse(planningJson);
+            _plannings.Add(planningDTO, filePath);
         }
 
         public void WritePlannings()
@@ -181,25 +140,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
 
         private IEnumerable<UserCredentials> ParseJUserArray()
         {
-            ISet<UserCredentials> userCreds = new HashSet<UserCredentials>();
             string absPath = GetAbsolutePath(_usersFileName);
             string jsonText = File.ReadAllText(absPath);
-            JArray usersJson = JArray.Parse(jsonText);
-            foreach (JToken obj in usersJson)
-            {
-                userCreds.Add(ParseJUser(obj));
-            }
-            return userCreds;
-        }
-
-        private UserCredentials ParseJUser(JToken obj)
-        {
-            JObject jUser = (JObject)obj;
-            var codeValue = (JValue) jUser["Code"];
-            var passwordValue = (JValue) jUser["Password"];
-            string code = codeValue.Value.ToString();
-            string password = passwordValue.Value.ToString();
-            return new UserCredentials(code, password.ToString());
+            return _userParser.ParseArray(jsonText);
         }
 
         private string GetAbsolutePath(string dirOrFile)
@@ -210,7 +153,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
 
         private bool JSONParseExceptionIsHandled(Exception ex)
         {
-            return ex is JsonReaderException || ex is InvalidCastException || ex is KeyNotFoundException || ex is NullReferenceException;
+            return ex is JsonReaderException || ex is InvalidCastException 
+                || ex is KeyNotFoundException || ex is NullReferenceException
+                || ex is FormatException;
         }
     }
 }

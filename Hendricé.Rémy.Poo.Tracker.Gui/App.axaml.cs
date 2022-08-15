@@ -11,13 +11,17 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
     public partial class App : Application
     {
+        private ITrackerServices _services;
+        private SuperviserCreator _superviserCreator;
+        private MainSuperviser _mainSuperviser;
+
+
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+            _services = new TrackerServiceProvider("../../../../../json", "users.json", "plannings");
+            _superviserCreator = new SuperviserCreator(_services);
         }
-
-        private readonly SuperviserCreator _superviserCreator = new SuperviserCreator();
-        private MainSuperviser _mainSuperviser;
 
         public override void OnFrameworkInitializationCompleted()
         {
@@ -50,7 +54,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         {
             var jobsView = new JobListView();
             mainWindow.AddJobsView(jobsView);
-            var jobsSuperviser = _superviserCreator.CreateJobsSuperviser(jobsView);
+            var jobsSuperviser = _superviserCreator.CreateJobListSuperviser(jobsView);
             mainSuperviser.JobListSuperviser = jobsSuperviser;
         }
 

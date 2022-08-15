@@ -22,6 +22,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         public void ShowError(Window owner, string message)
         {
+            this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             var messageBlock = this.FindControl<TextBlock>("ErrorMessage");
             messageBlock.Text = message;
             this.ShowDialog(owner);

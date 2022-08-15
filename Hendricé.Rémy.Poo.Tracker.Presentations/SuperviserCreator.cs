@@ -11,25 +11,26 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
     public class SuperviserCreator : IProvideJobSuperviser
     {
-        private ITrackerRepository _repository;
-        public SuperviserCreator()
+        private ITrackerServices _services;
+
+        public SuperviserCreator(ITrackerServices services)
         {
-            _repository = new JSONTrackerRepository("../../../../../json", "users.json", "plannings");
+            _services = services;
         }
 
         public MainSuperviser CreateMainSuperviser(IMainView view)
         {
-            return new MainSuperviser(view, _repository);
+            return new MainSuperviser(view, _services.GetTrackerRepository());
         }
 
         public AuthenticateSuperviser CreateAuthenticateSuperviser(IAuthenticateView view)
         {
-            return new AuthenticateSuperviser(view, _repository, GetAuthenticator());
+            return new AuthenticateSuperviser(view, _services.GetTrackerRepository(), _services.GetAuthenticator());
         }
 
-        public JobListSuperviser CreateJobsSuperviser(IJobListView view)
+        public JobListSuperviser CreateJobListSuperviser(IJobListView view)
         {
-            return new JobListSuperviser(view, GetSortHandler(), GetFilterHandler(), GetConflictDetector(), this);
+            return new JobListSuperviser(view, _services.GetSortHandler(), _services.GetFilterHandler(), _services.GetConflictDetector(), this);
         }
 
         public GanttSuperviser CreateGanttSuperviser(IGanttView view)
@@ -40,28 +41,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         public ReportSuperviser CreateReportSuperviser(IReportView view)
         {
             return new ReportSuperviser(view);
-        }
-
-        private Authenticator GetAuthenticator()
-        {
-            return new Authenticator();
-        }
-
-        private SortHandler GetSortHandler()
-        {
-            var planningsort = new PlanningSort(new StatusSort(new BaseSort()));
-            return new SortHandler(planningsort, new SortParams());
-        }
-
-        private FilterHandler GetFilterHandler()
-        {
-            var planning = new PlanningFilter(new StatusFilter(new BaseFilter()));
-            return new FilterHandler(planning, new FilterParams());
-        }
-
-        private ConflictDetector GetConflictDetector()
-        {
-            return new ConflictDetector();
         }
 
         public JobSuperviser CreateJobSuperviser(IJobView view, Job job)

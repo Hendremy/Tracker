@@ -48,7 +48,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         public void ShowInternalError(string message)
         {
             var errWin = new ErrorWindow();
-            errWin.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             errWin.ShowError(this, message);
         }
 
