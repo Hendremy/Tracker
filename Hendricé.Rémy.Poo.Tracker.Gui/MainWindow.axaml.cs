@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Hendricé.Rémy.Poo.Tracker.Gui
 {
@@ -15,12 +16,30 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private TabItem _ganttTab;
         private TabItem _reportTab;
 
+        private QuitErrorWindow? _errorWindow;
+
+        public event EventHandler<CancelEventArgs> QuitRequested;
+        public event EventHandler QuitForced;
 
         public MainWindow()
         {
             InitializeComponent();
             LocateControls();
+            SubscribeToWindowEvents();
         }
+
+        private void LocateControls()
+        {
+            _tabs = this.FindControl<TabControl>("Tabs");
+            _jobsTab = this.FindControl<TabItem>("Jobs");
+            _ganttTab = this.FindControl<TabItem>("Gantt");
+            _reportTab = this.FindControl<TabItem>("Report");
+        }
+
+        private void SubscribeToWindowEvents()
+        {
+            this.Closing += OnQuitRequested;
+        } 
 
         public void AddJobsView(JobListView jobsTab)
         {
@@ -37,18 +56,27 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             _reportTab.Content = reportView;
         }
 
-        private void LocateControls()
-        {
-            _tabs = this.FindControl<TabControl>("Tabs");
-            _jobsTab = this.FindControl<TabItem>("Jobs");
-            _ganttTab = this.FindControl<TabItem>("Gantt");
-            _reportTab = this.FindControl<TabItem>("Report");
-        }
-
         public void ShowInternalError(string message)
         {
             var errWin = new ErrorWindow();
             errWin.ShowError(this, message);
+        }
+
+        private void OnQuitRequested(object sender, CancelEventArgs args)
+        {
+            QuitRequested?.Invoke(sender, args);
+        }
+
+        public void AskForceQuit(string message)
+        {
+            _errorWindow = new QuitErrorWindow();
+            _errorWindow.ShowError(this, message);
+            _errorWindow.QuitForced += OnQuitForced;
+        }
+
+        private void OnQuitForced(object? sender, EventArgs args)
+        {
+            QuitForced?.Invoke(this, args);
         }
     }
 }

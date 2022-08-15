@@ -24,7 +24,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         public event EventHandler<JobViewCreatedEventArgs> JobViewCreated;
         public event EventHandler QuitRequested;
 
-
         public JobListView()
         {
             JobsObservable = new ObservableCollection<JobControl>();

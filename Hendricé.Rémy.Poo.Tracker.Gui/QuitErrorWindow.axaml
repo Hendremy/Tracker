@@ -1,0 +1,17 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		MaxWidth="400" MaxHeight="200"
+        x:Class="Hendricé.Rémy.Poo.Tracker.Gui.QuitErrorWindow"
+        Title="QuitErrorWindow">
+	<StackPanel Margin="2" Spacing="8" VerticalAlignment="Center" HorizontalAlignment="Center">
+		<TextBlock Foreground="Red">/ ! \ Erreur critique / ! \</TextBlock>
+		<TextBlock TextWrapping="Wrap" Name="Error">Erreur</TextBlock>
+		<StackPanel Orientation="Horizontal" Spacing="30">
+			<Button HorizontalAlignment="Center" Background="Red" Foreground="White" Content="Quitter" Click="ForceQuit"></Button>
+			<Button HorizontalAlignment="Center" Content="Annuler" Click="Cancel"></Button>
+		</StackPanel>
+	</StackPanel>
+</Window>

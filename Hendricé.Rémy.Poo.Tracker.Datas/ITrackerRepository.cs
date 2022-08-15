@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Datas
 {
-    public interface ITrackerRepository
+    public interface ITrackerRepository : IDisposable
     {
-
         IEnumerable<UserCredentials> GetUsersCredentials();
         IEnumerable<Job> GetUserJobs(string code, out string errormessage);
     }

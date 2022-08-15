@@ -32,7 +32,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
     {
         public override IEnumerable<Job> Filter(IEnumerable<Job> jobs, FilterParams filterParams)
         {
-            if (filterParams.Param == FilterOption.Date && !string.IsNullOrWhiteSpace(filterParams.Value))
+            string value = filterParams.Value;
+            if (filterParams.Param == FilterOption.Date && value != null)
             {
                 DateTime date;
                 if (DateTime.TryParse(filterParams.Value, out date))
@@ -53,9 +54,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
 
         public override IEnumerable<Job> Filter(IEnumerable<Job> jobs, FilterParams filterParams)
         {
-            if (filterParams.Param == FilterOption.Planning && !string.IsNullOrWhiteSpace(filterParams.Value))
+            string value = filterParams.Value;
+            if (filterParams.Param == FilterOption.Planning && value != null)
             {
-                jobs = jobs.Where(j => j.Planning.Contains(filterParams.Value));
+                jobs = jobs.Where(j => string.IsNullOrWhiteSpace(value) || j.Planning.Contains(filterParams.Value));
             }
             return base.Filter(jobs, filterParams);
         }
@@ -70,9 +72,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
 
         public override IEnumerable<Job> Filter(IEnumerable<Job> jobs, FilterParams filterParams)
         {
-            if (filterParams.Param == FilterOption.Status && !string.IsNullOrWhiteSpace(filterParams.Value))
+            string value = filterParams.Value;
+            if (filterParams.Param == FilterOption.Status && value != null)
             {
-                jobs = jobs.Where(j => j.GetStatusString().Contains(filterParams.Value));
+                jobs = jobs.Where(j => string.IsNullOrWhiteSpace(value) || j.GetStatusString().Contains(filterParams.Value));
             }
             return base.Filter(jobs, filterParams);
         }

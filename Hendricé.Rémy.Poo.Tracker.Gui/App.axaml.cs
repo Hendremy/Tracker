@@ -40,6 +40,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             var mainWindow = new MainWindow();
             _mainSuperviser = _superviserCreator.CreateMainSuperviser(mainWindow);
             CreateTabViews(mainWindow, _mainSuperviser);
+            _mainSuperviser.AboutToQuit += Superviser_AboutToQuit;
             return mainWindow;
         }
 

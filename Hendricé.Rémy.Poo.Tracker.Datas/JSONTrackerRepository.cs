@@ -24,11 +24,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
             _dirLocation = dirLocation;
             _usersFileName = usersFileName;
             _planningsDirName = planningDirName;
-            _plannings = new Dictionary<PlanningDTO,string>();
         }
 
         public IEnumerable<Job> GetUserJobs(string user, out string errormessage)
         {
+            _plannings = new Dictionary<PlanningDTO, string>();
             errormessage = LoadPlannings();
             List<Job> jobs = new List<Job>();
             foreach(PlanningDTO planningDTO in _plannings.Keys)
@@ -68,13 +68,13 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
             {
                 throw new TrackerRepositoryException($"Le dossier {planningDirPath} n'a pas été trouvé");
             }
-            return failedPlannings.Count > 0 ? BuildFailedPlanningsMessage(failedPlannings) : null;
+            return failedPlannings.Count > 0 ? BuildFailedPlanningsMessage(failedPlannings," n'ont pas pû être chargés") : null;
         }
 
-        private string BuildFailedPlanningsMessage(IEnumerable<string> failedPaths)
+        private string BuildFailedPlanningsMessage(IEnumerable<string> failedPaths, string message)
         {
             var sb = new StringBuilder();
-            sb.Append($"Erreur - {failedPaths.Count()} planning(s) n'ont pas pû être chargés :\n");
+            sb.Append($"Erreur - {failedPaths.Count()} {message} :\n");
             foreach (string path in failedPaths)
             {
                 sb.Append($"{path}\n");
@@ -110,20 +110,33 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
             _plannings.Add(planningDTO, filePath);
         }
 
-        public void WritePlannings()
+        private void WritePlannings()
         {
+            if (_plannings == null) return;
+            var failedPaths = new List<String>();
             foreach(var entry in _plannings)
             {
-                string planningJson = _planningSerializer.Serialize(entry.Key);
-                string filePath = entry.Value;
-                try
-                {
-                    
-                }
-                catch(IOException ex)
-                {
-                    throw new TrackerRepositoryException($"");
-                }
+                TryWritePlanning(entry.Value, entry.Key, failedPaths);
+            }
+            if(failedPaths.Count > 0)
+            {
+                throw new TrackerRepositoryException(BuildFailedPlanningsMessage(failedPaths," n'ont pas pû être sauvegardés"));
+            }
+        }
+
+        private void TryWritePlanning(string filePath, PlanningDTO planning, IList<string> failedPaths)
+        {
+            string planningJson = _planningSerializer.Serialize(planning);
+            try
+            {
+                using var fileStream = File.Open(filePath, FileMode.Create);
+                using StreamWriter streamWriter = new StreamWriter(fileStream);
+                streamWriter.Write(planningJson);
+            }
+            catch (Exception ex)
+            {
+                if(ex is IOException || ex is UnauthorizedAccessException)
+                failedPaths.Add(filePath);
             }
         }
 
@@ -168,6 +181,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
             return ex is JsonReaderException || ex is InvalidCastException 
                 || ex is KeyNotFoundException || ex is NullReferenceException
                 || ex is FormatException;
+        }
+
+        public void Dispose()
+        {
+            WritePlannings();
         }
     }
 }

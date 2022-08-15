@@ -28,8 +28,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
 
         public event EventHandler<SortParams> SortRequested;
         public event EventHandler<FilterParams> FilterRequested;
-        public event EventHandler QuitRequested;
         public event EventHandler<JobViewCreatedEventArgs> JobViewCreated;
+        public event EventHandler QuitRequested;
 
         private void Welcome()
         {
@@ -45,7 +45,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
                 ShowJobs();
                 HandleChoice(AskInt(MENU));
             }
-            QuitRequested?.Invoke(this, EventArgs.Empty);
         }
 
         private void ShowJobs()

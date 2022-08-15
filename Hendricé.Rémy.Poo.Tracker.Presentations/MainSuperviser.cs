@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
@@ -13,6 +14,8 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         private readonly IMainView _view;
         private readonly ITrackerRepository _repository;
         private IList<Job> _userJobs;
+
+        public event EventHandler AboutToQuit;
 
         private JobListSuperviser _jobListSuperviser;
         public JobListSuperviser JobListSuperviser
@@ -35,6 +38,13 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         {
             _view = view;
             _repository = repository;
+            SubscribeToViewEvents(view);
+        }
+
+        private void SubscribeToViewEvents(IMainView view)
+        {
+            _view.QuitRequested += NotifyAboutToQuit;
+            _view.QuitForced += OnForceQuit;
         }
 
         public void OnUserAuthentified(object sender, string code)
@@ -48,5 +58,22 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             _ganttSuperviser?.SetObservableJobs(observableJobs);
         }
 
+        public void NotifyAboutToQuit(object sender, CancelEventArgs args)
+        {
+            try
+            {
+                _repository.Dispose();
+                AboutToQuit?.Invoke(this, args);
+            }catch(TrackerRepositoryException ex)
+            {
+                args.Cancel = true;
+                _view.AskForceQuit(ex.Message);
+            }
+        }
+
+        private void OnForceQuit(object sender, EventArgs args)
+        {
+            AboutToQuit?.Invoke(this, args);
+        }
     }
 }
