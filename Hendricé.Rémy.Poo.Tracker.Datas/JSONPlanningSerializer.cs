@@ -107,7 +107,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
             jJob.Add("Technician", job.Technician);
             jJob.Add("Description", job.Description);
             jJob.Add("ExpStart", job.ExpectedStartDate.ToShortDateString());
-            jJob.Add("ExpEnd", job.ExpectedStartDate.ToShortDateString());
+            jJob.Add("ExpEnd", job.ExpectedEndDate.ToShortDateString());
             jJob.Add("ActStart", DateToString(job.ActualStartDate));
             jJob.Add("ActEnd", DateToString(job.ActualEndDate));
             return jJob;
