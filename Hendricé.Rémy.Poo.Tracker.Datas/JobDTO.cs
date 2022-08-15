@@ -16,6 +16,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
 
         public TimeReport TimeReport { get; init; }
 
+        public DateTime ActualStartDate => TimeReport.ActualStartDate;
+        public DateTime ActualEndDate => TimeReport.ActualEndDate;
+        public DateTime ExpectedStartDate => TimeReport.ExpectedStartDate;
+        public DateTime ExpectedEndDate => TimeReport.ExpectedEndDate;
+
         public JobDTO (string name, string description, string technician, DateTime expStart, DateTime expEnd, DateTime actStart, DateTime actEnd)
         {
             Name = name;

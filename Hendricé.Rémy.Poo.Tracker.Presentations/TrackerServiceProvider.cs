@@ -16,9 +16,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             _repository = new JSONTrackerRepository(GetPlanningParser(), GetUserParser(), jsonDir, usersFile, planningsDir);
         }
 
-        private IParsePlanning GetPlanningParser()
+        private ISerializePlanning GetPlanningParser()
         {
-            return new JSONPlanningParser();
+            return new JSONPlanningSerializer();
         }
 
         private IParseUser GetUserParser()

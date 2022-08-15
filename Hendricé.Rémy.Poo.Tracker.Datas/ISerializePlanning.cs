@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Datas
 {
-    public interface IParsePlanning
+    public interface ISerializePlanning
     {
-        public PlanningDTO Parse(string planningString);
+        public PlanningDTO Deserialize(string planningString);
+
+        public string Serialize(PlanningDTO planning);
     }
 }

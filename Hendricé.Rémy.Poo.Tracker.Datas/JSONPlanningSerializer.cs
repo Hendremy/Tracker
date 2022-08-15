@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Datas
 {
-    public class JSONPlanningParser : IParsePlanning
+    public class JSONPlanningSerializer : ISerializePlanning
     {
-        public PlanningDTO Parse(string planningJson)
+        public PlanningDTO Deserialize(string planningJson)
         {
-            return ParsePlanning(planningJson);
+            return DeserializePlanning(planningJson);
         }
 
-        private PlanningDTO ParsePlanning(string planningJson)
+        private PlanningDTO DeserializePlanning(string planningJson)
         {
             JObject jPlanning = JObject.Parse(planningJson);
             var jName = (JValue)jPlanning["Name"];
@@ -84,6 +84,33 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
             {
                 return DateTime.MinValue;
             }
+        }
+
+        public string Serialize(PlanningDTO planning)
+        {
+            JObject jPlanning = new JObject();
+            jPlanning.Add("Name", planning.Name);
+            JArray jJobs = new JArray();
+            var jobs = planning.Jobs;
+            foreach(JobDTO job in jobs)
+            {
+                jJobs.Add(ParseJob(job));
+            }
+            jPlanning.Add("Jobs", jJobs);
+            return jPlanning.ToString();
+        }
+
+        private JObject ParseJob(JobDTO job)
+        {
+            JObject jJob = new JObject();
+            jJob.Add("Name", job.Name);
+            jJob.Add("Technician", job.Technician);
+            jJob.Add("Description", job.Description);
+            jJob.Add("ExpStart", job.ExpectedStartDate);
+            jJob.Add("ExpEnd", job.ExpectedStartDate);
+            jJob.Add("ActStart", job.ActualStartDate);
+            jJob.Add("ActEnd", job.ActualEndDate);
+            return jJob;
         }
     }
 }

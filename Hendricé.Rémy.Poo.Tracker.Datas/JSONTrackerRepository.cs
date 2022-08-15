@@ -13,13 +13,13 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
         private readonly string _dirLocation;
         private readonly string _usersFileName;
         private readonly string _planningsDirName;
-        private IParsePlanning _planningParser;
+        private ISerializePlanning _planningSerializer;
         private IParseUser _userParser;
         private IDictionary<PlanningDTO,string> _plannings;
 
-        public JSONTrackerRepository(IParsePlanning planningParser, IParseUser userParser, string dirLocation, string usersFileName, string planningDirName)
+        public JSONTrackerRepository(ISerializePlanning planningParser, IParseUser userParser, string dirLocation, string usersFileName, string planningDirName)
         {
-            _planningParser = planningParser;
+            _planningSerializer = planningParser;
             _userParser = userParser;
             _dirLocation = dirLocation;
             _usersFileName = usersFileName;
@@ -106,13 +106,25 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
         private void ParsePlanning(string filePath)
         {
             string planningJson = File.ReadAllText(filePath);
-            var planningDTO = _planningParser.Parse(planningJson);
+            var planningDTO = _planningSerializer.Deserialize(planningJson);
             _plannings.Add(planningDTO, filePath);
         }
 
         public void WritePlannings()
         {
-
+            foreach(var entry in _plannings)
+            {
+                string planningJson = _planningSerializer.Serialize(entry.Key);
+                string filePath = entry.Value;
+                try
+                {
+                    
+                }
+                catch(IOException ex)
+                {
+                    throw new TrackerRepositoryException($"");
+                }
+            }
         }
 
         public IEnumerable<UserCredentials> GetUsersCredentials()

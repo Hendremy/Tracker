@@ -29,6 +29,9 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
             set => _end = value;
         }
 
+        public DateTime EndDate => End.Date;
+        public DateTime StartDate => Start.Date;
+
         public bool CollidesWith(DaySpan span)
         {
             return this.Start <= span.End && span.Start <= this.End;
