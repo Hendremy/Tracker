@@ -18,33 +18,35 @@ namespace Hendricé.Rémy.Poo.Tracker.Domains
             IList<GanttJob> ganttJobs = new List<GanttJob>(jobs.Count);
             foreach(var job in jobs)
             {
-                var name = job.Name;
+                var name = $"{job.Planning} - {job.Name}";
                 GanttLine expected = new GanttLine(job.TimeReport.Expected);
-                GanttLine actual = CreateActualLine(job.TimeReport.Actual, job.Duration);
+                GanttLine actual = CreateActualLine(job);
                 ganttJobs.Add(new GanttJob(name, expected, actual));
             }
             return ganttJobs;
         }
 
-        private GanttLine CreateActualLine(DaySpan actual, int jobDuration)
+        private GanttLine CreateActualLine(Job job)
         {
-            if(actual.End == DateTime.MinValue)
+            JobStatus status = job.GetStatus();
+            if(status == JobStatus.Done)
             {
-                if(actual.Start == DateTime.MinValue)
-                {
-                    var newStart = DateTime.Now;
-                    var newEnd = DateTime.Now.AddDays(jobDuration);
-                    return new GanttLine(new DaySpan(newStart, newEnd));
-                }
-                else
-                {
-                    var newEnd = DateTime.Now;
-                    return new GanttLine(new DaySpan(actual.Start, newEnd));
-                }
+                return new GanttLine(job.TimeReport.Actual);
             }
             else
             {
-                return new GanttLine(actual);
+                if(status == JobStatus.Todo)
+                {
+                    var now = DateTime.Now;
+                    var daySpan = new DaySpan(now, now.AddDays(job.Duration));
+                    return new GanttLine(daySpan);
+                }
+                else
+                {
+                    var now = DateTime.Now;
+                    var daySpan = new DaySpan(job.TimeReport.ActualStart, now);
+                    return new GanttLine(daySpan);
+                }
             }
         }
     }

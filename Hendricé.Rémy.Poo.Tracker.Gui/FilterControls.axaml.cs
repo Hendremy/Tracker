@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Hendricé.Rémy.Poo.Tracker.Domains;
 using System;
@@ -17,6 +18,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private TextBox _filterValue;
         private Label _dateLabel;
         private DatePicker _filterDate;
+        private Button _filterBtn;
 
         public event EventHandler<FilterParams> FilterRequested;
 
@@ -34,6 +36,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             _filterValue = this.FindControl<TextBox>("FilterValue");
             _dateLabel = this.FindControl<Label>("DateLabel");
             _filterDate = this.FindControl<DatePicker>("FilterDate");
+            _filterBtn = this.FindControl<Button>("FilterBtn");
             _filterDate.SelectedDateChanged += FilterDate_Changed;
         }
 
@@ -62,14 +65,10 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             FilterRequested?.Invoke(this, args);
         }
 
-        private void FilterValue_Changed(object? sender, AvaloniaPropertyChangedEventArgs args)
+        private void Filter_Click(object? sender, RoutedEventArgs args)
         {
-            string value = _filterValue.Text;
-            if (!string.IsNullOrWhiteSpace(value))
-            {
-                FilterParams filterArgs = new FilterParams(GetSelectedFilterParam(), _filterValue.Text);
-                FireFilterEvent(filterArgs);
-            }
+            FilterParams filterArgs = new FilterParams(GetSelectedFilterParam(), _filterValue.Text);
+            FireFilterEvent(filterArgs);
         }
 
         private void FilterDate_Changed(object? sender, DatePickerSelectedValueChangedEventArgs args)
@@ -144,6 +143,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         {
             _valueLabel.IsVisible = visible;
             _filterValue.IsVisible = visible;
+            _filterBtn.IsVisible = visible;
         }
 
         private void InitializeComponent()

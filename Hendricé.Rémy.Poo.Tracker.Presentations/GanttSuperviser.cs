@@ -26,9 +26,15 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         {
             _jobs = jobs;
             _jobs.CollectionChanged += OnJobCollectionChanged;
+            UpdateItems();
         }
 
         private void OnJobCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            UpdateItems();
+        }
+
+        private void UpdateItems()
         {
             IList<GanttJob> ganttItems = _ganttCreator.CreateGanttJobs(_jobs);
             _view.UpdateItems(ganttItems);
