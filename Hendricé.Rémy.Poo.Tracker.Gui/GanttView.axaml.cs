@@ -35,7 +35,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         private void InitializeChart()
         {
-            //Plot.YAxis.Ticks(false);
             Plot.Title("Tâches");
         }
 
