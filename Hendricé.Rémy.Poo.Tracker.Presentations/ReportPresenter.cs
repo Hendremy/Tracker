@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
-    public class ReportSuperviser
+    public class ReportPresenter
     {
 
         private readonly IReportView _view;
 
-        public ReportSuperviser(IReportView view)
+        public ReportPresenter(IReportView view)
         {
             _view = view;
         }

@@ -13,13 +13,13 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         }
 
         private readonly ITrackerServices _services;
-        private readonly SuperviserCreator _superviserCreator;
-        private MainSuperviser _mainSuperviser;
+        private readonly PresenterCreator _presenterCreator;
+        private MainPresenter _mainPresenter;
 
         private Program()
         {
             _services = new TrackerServiceProvider("../../../../../json", "users.json", "plannings");
-            _superviserCreator = new SuperviserCreator(_services);
+            _presenterCreator = new PresenterCreator(_services);
             CreateMainView();
             CreateAuthenticateView();
         }
@@ -27,28 +27,28 @@ namespace Hendricé.Rémy.Poo.Tracker.Cli
         private void CreateMainView()
         {
             var view = new MainView();
-            _mainSuperviser = _superviserCreator.CreateMainSuperviser(view);
-            CreateTabViews(_mainSuperviser);
+            _mainPresenter = _presenterCreator.CreateMainPresenter(view);
+            CreateTabViews(_mainPresenter);
         }
 
-        private void CreateTabViews(MainSuperviser mainSuperviser)
+        private void CreateTabViews(MainPresenter mainSuperviser)
         {
             CreateJobListView(mainSuperviser);
         }
 
-        private void CreateJobListView(MainSuperviser mainSuperviser)
+        private void CreateJobListView(MainPresenter mainSuperviser)
         {
             var jobsView = new JobListView();
-            var jobsSuperviser = _superviserCreator.CreateJobListSuperviser(jobsView);
-            mainSuperviser.JobListSuperviser = jobsSuperviser;
+            var jobsSuperviser = _presenterCreator.CreateJobListPresenter(jobsView);
+            mainSuperviser.JobListPresenter = jobsSuperviser;
         }
 
         private void CreateAuthenticateView()
         {
             var view = new AuthenticateView();
-            var authSuperviser = _superviserCreator.CreateAuthenticateSuperviser(view);
+            var authPresenter = _presenterCreator.CreateAuthenticatePresenter(view);
             view.ShowDialog();
-            authSuperviser.UserAuthentified += _mainSuperviser.OnUserAuthentified;
+            authPresenter.UserAuthentified += _mainPresenter.OnUserAuthentified;
         }
     }
 }

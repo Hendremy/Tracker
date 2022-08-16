@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
-    public class JobSuperviser
+    public class JobPresenter
     {
         private IJobView _view;
         private Job _job;
 
-        public JobSuperviser(IJobView view, Job job)
+        public JobPresenter(IJobView view, Job job)
         {
             _view = view;
             _job = job;

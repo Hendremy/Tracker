@@ -12,15 +12,15 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
     public partial class App : Application
     {
         private ITrackerServices _services;
-        private SuperviserCreator _superviserCreator;
-        private MainSuperviser _mainSuperviser;
+        private PresenterCreator _superviserCreator;
+        private MainPresenter _mainSuperviser;
 
 
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
             _services = new TrackerServiceProvider("../../../../../json", "users.json", "plannings");
-            _superviserCreator = new SuperviserCreator(_services);
+            _superviserCreator = new PresenterCreator(_services);
         }
 
         public override void OnFrameworkInitializationCompleted()
@@ -38,45 +38,45 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private MainWindow CreateMainView()
         {
             var mainWindow = new MainWindow();
-            _mainSuperviser = _superviserCreator.CreateMainSuperviser(mainWindow);
+            _mainSuperviser = _superviserCreator.CreateMainPresenter(mainWindow);
             CreateTabViews(mainWindow, _mainSuperviser);
             return mainWindow;
         }
 
-        private void CreateTabViews(MainWindow mainWindow, MainSuperviser mainSuperviser)
+        private void CreateTabViews(MainWindow mainWindow, MainPresenter mainSuperviser)
         {
             CreateJobListView(mainWindow, mainSuperviser);
             CreateGanttView(mainWindow, mainSuperviser);
             CreateReportView(mainWindow, mainSuperviser);
         }
 
-        private void CreateJobListView(MainWindow mainWindow, MainSuperviser mainSuperviser)
+        private void CreateJobListView(MainWindow mainWindow, MainPresenter mainSuperviser)
         {
             var jobsView = new JobListView();
             mainWindow.AddJobsView(jobsView);
-            var jobsSuperviser = _superviserCreator.CreateJobListSuperviser(jobsView);
-            mainSuperviser.JobListSuperviser = jobsSuperviser;
+            var jobsSuperviser = _superviserCreator.CreateJobListPresenter(jobsView);
+            mainSuperviser.JobListPresenter = jobsSuperviser;
         }
 
-        private void CreateGanttView(MainWindow mainWindow, MainSuperviser mainSuperviser)
+        private void CreateGanttView(MainWindow mainWindow, MainPresenter mainSuperviser)
         {
             var ganttView = new GanttView();
             mainWindow.AddGanttView(ganttView);
-            var ganttSuperviser = _superviserCreator.CreateGanttSuperviser(ganttView);
+            var ganttSuperviser = _superviserCreator.CreateGanttPresenter(ganttView);
             mainSuperviser.GanttSuperviser = ganttSuperviser;
         }
 
-        private void CreateReportView(MainWindow mainWindow, MainSuperviser mainSuperviser)
+        private void CreateReportView(MainWindow mainWindow, MainPresenter mainSuperviser)
         {
             var reportView = new ReportView();
             mainWindow.AddReportView(reportView);
-            var reportSuperviser = _superviserCreator.CreateReportSuperviser(reportView);
+            var reportSuperviser = _superviserCreator.CreateReportPresenter(reportView);
             mainSuperviser.ReportSuperviser = reportSuperviser;
         }
 
         private void CreateAuthenticateWindow(AuthenticateWindow view)
         {
-            var authSuperviser = _superviserCreator.CreateAuthenticateSuperviser(view);
+            var authSuperviser = _superviserCreator.CreateAuthenticatePresenter(view);
             authSuperviser.UserAuthentified += _mainSuperviser.OnUserAuthentified;
             authSuperviser.AboutToQuit += Superviser_AboutToQuit;
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
-    public class AuthenticateSuperviser
+    public class AuthenticatePresenter
     {
         private readonly IAuthenticateView _view;
         private readonly ITrackerRepository _repository;
@@ -17,7 +17,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         public event EventHandler<string> UserAuthentified;
         public event EventHandler AboutToQuit;
 
-        public AuthenticateSuperviser(IAuthenticateView view, ITrackerRepository repository, IAuthenticate authenticator)
+        public AuthenticatePresenter(IAuthenticateView view, ITrackerRepository repository, IAuthenticate authenticator)
         {
             _repository = repository;
             _authenticator = authenticator;

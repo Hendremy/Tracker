@@ -9,20 +9,20 @@ using System.Linq;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
-    public class JobListSuperviser
+    public class JobListPresenter
     {
         private readonly IJobListView _view;
         private readonly ISortHandler _sortHandler;
         private readonly IFilterHandler _filterHandler;
         private readonly IDetectConflict _conflictDetector;
-        private readonly IProvideJobSuperviser _superviserProvider;
+        private readonly IProvideJobPresenter _superviserProvider;
 
         private ISet<Job> _userJobs;
         private ObservableCollection<Job> _observableJobs;//TODO: P-e pas besoin d'en faire une collection observable
 
-        public JobListSuperviser(IJobListView view, 
+        public JobListPresenter(IJobListView view, 
             ISortHandler sortHandler, IFilterHandler filterHandler, 
-            IDetectConflict conflictDetector, IProvideJobSuperviser superviserProvider)
+            IDetectConflict conflictDetector, IProvideJobPresenter superviserProvider)
         {
             _view = view;
             _sortHandler = sortHandler;
@@ -99,7 +99,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 
         private void OnJobViewCreated(object sender, JobViewCreatedEventArgs args)
         {
-            var jobSuperviser = _superviserProvider.CreateJobSuperviser(args.View, args.Job);
+            var jobSuperviser = _superviserProvider.CreateJobPresenter(args.View, args.Job);
         }
 
         private void CloseView()

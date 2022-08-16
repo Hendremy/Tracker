@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
-    public class MainSuperviser
+    public class MainPresenter
     {
         private readonly IMainView _view;
         private readonly ITrackerRepository _repository;
@@ -17,24 +17,24 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 
         public event EventHandler AboutToQuit;
 
-        private JobListSuperviser _jobListSuperviser;
-        public JobListSuperviser JobListSuperviser
+        private JobListPresenter _jobListSuperviser;
+        public JobListPresenter JobListPresenter
         {
             set => _jobListSuperviser = value;
         }
-        private GanttSuperviser _ganttSuperviser;
-        public GanttSuperviser GanttSuperviser
+        private GanttPresenter _ganttSuperviser;
+        public GanttPresenter GanttSuperviser
         {
             set => _ganttSuperviser = value;
         }
-        private ReportSuperviser _reportSuperviser;
-        public ReportSuperviser ReportSuperviser
+        private ReportPresenter _reportSuperviser;
+        public ReportPresenter ReportSuperviser
         {
             set => _reportSuperviser = value;
         }
         public event EventHandler<string> UserAuthentified;
 
-        public MainSuperviser(IMainView view, ITrackerRepository repository)
+        public MainPresenter(IMainView view, ITrackerRepository repository)
         {
             _view = view;
             _repository = repository;

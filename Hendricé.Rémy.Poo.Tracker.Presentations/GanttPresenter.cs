@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
-    public class GanttSuperviser
+    public class GanttPresenter
     {
         private readonly IGanttView _view;
         private readonly ICreateGanttItems _ganttCreator;
 
         private ObservableCollection<Job> _jobs;
 
-        public GanttSuperviser(IGanttView view, ICreateGanttItems ganttCreator)
+        public GanttPresenter(IGanttView view, ICreateGanttItems ganttCreator)
         {
             _view = view;
             _ganttCreator = ganttCreator;
