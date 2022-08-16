@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Hendricé.Rémy.Poo.Tracker.Presentations
@@ -16,7 +17,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         private readonly IDetectConflict _conflictDetector;
         private readonly IProvideJobSuperviser _superviserProvider;
 
-        private IEnumerable<Job> _userJobs;
+        private ISet<Job> _userJobs;
         private ObservableCollection<Job> _observableJobs;//TODO: P-e pas besoin d'en faire une collection observable
 
         public JobListSuperviser(IJobListView view, 
@@ -41,10 +42,19 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 
         public void SetJobs(IList<Job> jobs, ObservableCollection<Job> observableJobs)
         {
-            _userJobs = jobs;
+            _userJobs = new HashSet<Job>(jobs);
+            SubscribeToJobsPropertyChanged(_userJobs);
             _observableJobs = observableJobs;
             _view.ShowConflicts(_conflictDetector.DetectConflicts(_userJobs));
             _view.Update(_userJobs);
+        }
+
+        private void SubscribeToJobsPropertyChanged(ICollection<Job> jobs)
+        {
+            foreach (var job in jobs)
+            {
+                job.PropertyChanged += OnJobPropertyChanged;
+            }
         }
 
         public void OnQuitRequested(object sender, EventArgs args)
@@ -61,6 +71,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         public void OnFilterRequested(object sender, FilterParams args)
         {
             _filterHandler.Params = args;
+            SortAndFilterJobs();
+        }
+
+        private void OnJobPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
             SortAndFilterJobs();
         }
 

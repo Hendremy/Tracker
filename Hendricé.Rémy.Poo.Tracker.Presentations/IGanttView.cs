@@ -10,6 +10,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 {
     public interface IGanttView
     {
-        void UpdateItems(IEnumerable<Job> jobs);
+        void UpdateItems(IList<GanttJob> jobs);
     }
 }

@@ -52,6 +52,11 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         {
             return _repository;
         }
+
+        public ICreateGanttItems GetGanttItemsCreator()
+        {
+            return new GanttItemsCreator();
+        }
     }
 
     public interface ITrackerServices
@@ -61,5 +66,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         public IFilterHandler GetFilterHandler();
         public IDetectConflict GetConflictDetector();
         public ITrackerRepository GetTrackerRepository();
+        public ICreateGanttItems GetGanttItemsCreator();
     }
 }

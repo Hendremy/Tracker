@@ -13,7 +13,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hendricé.Rémy.Poo.Tracker
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hendricé.Rémy.Poo.Tracker.Presentations", "Hendricé.Rémy.Poo.Tracker.Presentations\Hendricé.Rémy.Poo.Tracker.Presentations.csproj", "{4A2E96B1-BEE1-40AE-A760-C2E07A8A71B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hendricé.Rémy.Poo.Tracker.Gui", "Hendricé.Rémy.Poo.Tracker.Gui\Hendricé.Rémy.Poo.Tracker.Gui.csproj", "{B52756EA-D211-4E1A-9986-FABB13F1B74C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hendricé.Rémy.Poo.Tracker.Gui", "Hendricé.Rémy.Poo.Tracker.Gui\Hendricé.Rémy.Poo.Tracker.Gui.csproj", "{B52756EA-D211-4E1A-9986-FABB13F1B74C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9F34EBAF-60CB-4DBB-8E36-29A408B08E22}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "json", "json", "{542ADC84-90DB-4FDA-932B-1DFE03ACEC2C}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\json\users.json = ..\..\json\users.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "planning", "planning", "{896BB244-BD2D-4152-967A-016AB84EAF67}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\json\plannings\HELMOGardenParty-74176.json = ..\..\json\plannings\HELMOGardenParty-74176.json
+		..\..\json\plannings\MariageClaudyetClaudette-52750.json = ..\..\json\plannings\MariageClaudyetClaudette-52750.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +64,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{896BB244-BD2D-4152-967A-016AB84EAF67} = {542ADC84-90DB-4FDA-932B-1DFE03ACEC2C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E1304F5B-9303-492F-BFD3-ECA341F2971F}

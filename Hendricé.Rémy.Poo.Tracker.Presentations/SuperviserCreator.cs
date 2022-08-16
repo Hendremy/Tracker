@@ -35,7 +35,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
 
         public GanttSuperviser CreateGanttSuperviser(IGanttView view)
         {
-            return new GanttSuperviser(view);
+            return new GanttSuperviser(view, _services.GetGanttItemsCreator());
         }
 
         public ReportSuperviser CreateReportSuperviser(IReportView view)

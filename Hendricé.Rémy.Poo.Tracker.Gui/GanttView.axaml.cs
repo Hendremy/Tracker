@@ -16,7 +16,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
     {
         private AvaPlot _ganttChart;
         private Plot Plot => _ganttChart.Plot;
-        private IDictionary<Job, GanttJob> _ganttJobs;
 
         public GanttView()
         {
@@ -32,7 +31,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
 
         private void InitializeChart()
         {
-            Plot.YAxis.Line(false);
+            Plot.YAxis.Ticks(false);
             Plot.Title("Tâches");
         }
 
@@ -41,44 +40,24 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             AvaloniaXamlLoader.Load(this);
         }
 
-        public void UpdateItems(IEnumerable<Job> jobs)
+        public void UpdateItems(IList<GanttJob> jobs)
         {
-            _ganttJobs = new Dictionary<Job, GanttJob>();
-            foreach(var job in jobs)
+            int yValue = 0;
+            string[] labels = new string[jobs.Count];
+            foreach(GanttJob job in jobs)
             {
-
+                _ganttChart.Plot.AddLine(job.Actual.StartX, yValue, job.Actual.EndX, yValue);
+                labels[yValue] = job.Name;
+                yValue++;
             }
+            this.Plot.YTicks(labels);
+            this.Plot.Legend();
+            _ganttChart.Refresh();
         }
 
         private void OnJobStatusChanged(object sender, PropertyChangedEventArgs args)
         {
 
         }
-    }
-
-    public class GanttJob
-    {
-        private readonly string _name;
-        private readonly GanttLine _expected;
-        private readonly GanttLine _actual;
-
-        public GanttJob(string name, GanttLine expected, GanttLine actual)
-        {
-            _name = name;
-            _expected = expected;
-            _actual = actual;
-        }
-    }
-
-    public class GanttLine
-    {
-        private readonly DaySpan _daySpan;
-
-        public GanttLine(DaySpan daySpan)
-        {
-            _daySpan = daySpan;
-        }
-
-        public DaySpan DaySpan => _daySpan;
     }
 }
