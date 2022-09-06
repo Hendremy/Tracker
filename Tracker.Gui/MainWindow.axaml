@@ -18,10 +18,5 @@
 				<TextBlock>Gantt</TextBlock>
 			</TabItem.Header>
 		</TabItem>
-		<TabItem Name="Report">
-			<TabItem.Header>
-				<TextBlock>Rapport</TextBlock>
-			</TabItem.Header>
-		</TabItem>
 	</TabControl>
 </Window>

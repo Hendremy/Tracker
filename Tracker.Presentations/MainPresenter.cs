@@ -27,11 +27,7 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
         {
             set => _ganttSuperviser = value;
         }
-        private ReportPresenter _reportSuperviser;
-        public ReportPresenter ReportSuperviser
-        {
-            set => _reportSuperviser = value;
-        }
+
         public event EventHandler<string> UserAuthentified;
 
         public MainPresenter(IMainView view, ITrackerRepository repository)

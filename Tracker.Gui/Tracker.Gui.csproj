@@ -36,8 +36,5 @@
     <Compile Update="JobListView.axaml.cs">
       <DependentUpon>JobListView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="ReportView.axaml.cs">
-      <DependentUpon>ReportView.axaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 </Project>

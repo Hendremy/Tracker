@@ -47,7 +47,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         {
             CreateJobListView(mainWindow, mainSuperviser);
             CreateGanttView(mainWindow, mainSuperviser);
-            CreateReportView(mainWindow, mainSuperviser);
         }
 
         private void CreateJobListView(MainWindow mainWindow, MainPresenter mainSuperviser)
@@ -64,14 +63,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             mainWindow.AddGanttView(ganttView);
             var ganttSuperviser = _superviserCreator.CreateGanttPresenter(ganttView);
             mainSuperviser.GanttSuperviser = ganttSuperviser;
-        }
-
-        private void CreateReportView(MainWindow mainWindow, MainPresenter mainSuperviser)
-        {
-            var reportView = new ReportView();
-            mainWindow.AddReportView(reportView);
-            var reportSuperviser = _superviserCreator.CreateReportPresenter(reportView);
-            mainSuperviser.ReportSuperviser = reportSuperviser;
         }
 
         private void CreateAuthenticateWindow(AuthenticateWindow view)

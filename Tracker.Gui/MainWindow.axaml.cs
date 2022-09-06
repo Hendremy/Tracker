@@ -14,7 +14,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
         private TabControl _tabs;
         private TabItem _jobsTab;
         private TabItem _ganttTab;
-        private TabItem _reportTab;
 
         private QuitErrorWindow? _errorWindow;
 
@@ -33,7 +32,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             _tabs = this.FindControl<TabControl>("Tabs");
             _jobsTab = this.FindControl<TabItem>("Jobs");
             _ganttTab = this.FindControl<TabItem>("Gantt");
-            _reportTab = this.FindControl<TabItem>("Report");
         }
 
         private void SubscribeToWindowEvents()
@@ -51,10 +49,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Gui
             _ganttTab.Content = ganttView;
         }
 
-        public void AddReportView(ReportView reportView)
-        {
-            _reportTab.Content = reportView;
-        }
 
         public void ShowInternalError(string message)
         {

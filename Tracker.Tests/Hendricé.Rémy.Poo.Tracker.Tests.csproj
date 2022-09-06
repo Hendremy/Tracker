@@ -8,14 +8,18 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Moq" Version="4.18.2" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
     <PackageReference Include="coverlet.collector" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hendricé.Rémy.Poo.Tracker.Cli\Tracker.Cli.csproj" />
     <ProjectReference Include="..\Hendricé.Rémy.Poo.Tracker.Datas\Hendricé.Rémy.Poo.Tracker.Datas.csproj" />
     <ProjectReference Include="..\Hendricé.Rémy.Poo.Tracker.Domains\Hendricé.Rémy.Poo.Tracker.Domains.csproj" />
+    <ProjectReference Include="..\Hendricé.Rémy.Poo.Tracker.Gui\Hendricé.Rémy.Poo.Tracker.Gui.csproj" />
+    <ProjectReference Include="..\Hendricé.Rémy.Poo.Tracker.Presentations\Hendricé.Rémy.Poo.Tracker.Presentations.csproj" />
   </ItemGroup>
 
 </Project>

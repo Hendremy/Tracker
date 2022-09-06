@@ -106,14 +106,14 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
             jJob.Add("Name", job.Name);
             jJob.Add("Technician", job.Technician);
             jJob.Add("Description", job.Description);
-            jJob.Add("ExpStart", job.ExpectedStartDate.ToShortDateString());
-            jJob.Add("ExpEnd", job.ExpectedEndDate.ToShortDateString());
-            jJob.Add("ActStart", DateToString(job.ActualStartDate));
-            jJob.Add("ActEnd", DateToString(job.ActualEndDate));
+            jJob.Add("ExpStart", DateToString(job.ExpectedStartDate));
+            jJob.Add("ExpEnd", DateToString(job.ExpectedEndDate));
+            jJob.Add("ActStart", ActDateToString(job.ActualStartDate));
+            jJob.Add("ActEnd", ActDateToString(job.ActualEndDate));
             return jJob;
         }
 
-        private string DateToString(DateTime date)
+        private string ActDateToString(DateTime date)
         {
             if(date == DateTime.MinValue)
             {
@@ -121,8 +121,13 @@ namespace Hendricé.Rémy.Poo.Tracker.Datas
             }
             else
             {
-                return date.ToShortDateString();
+                return DateToString(date);
             }
+        }
+
+        private string DateToString(DateTime date)
+        {
+            return date.ToString("yyyy-MM-dd");
         }
     }
 }

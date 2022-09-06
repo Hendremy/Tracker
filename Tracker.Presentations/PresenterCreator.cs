@@ -38,11 +38,6 @@ namespace Hendricé.Rémy.Poo.Tracker.Presentations
             return new GanttPresenter(view, _services.GetGanttItemsCreator());
         }
 
-        public ReportPresenter CreateReportPresenter(IReportView view)
-        {
-            return new ReportPresenter(view);
-        }
-
         public JobPresenter CreateJobPresenter(IJobView view, Job job)
         {
             return new JobPresenter(view, job);
